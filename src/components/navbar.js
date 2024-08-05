@@ -1,11 +1,11 @@
 import React from 'react';
-import './src/components/navbar.css'; 
+import './src/components/navbar.css';
 
 const Navbar = () => {
   return (
     <header className="header" id="header">
       <nav className="nav container">
-        <img src="./src/components/footer-logo.png" alt="logo" />
+        <img src="/src/components/footer-logo.png" alt="logo" /> 
         
         <div className="nav_menu" id="nav-menu">
           <ul className="nav_list" id="nav-list">
@@ -41,7 +41,7 @@ const Navbar = () => {
         </div>
         
         <div className="Search_area" id="Search-area">
-          <form id="search-form" action="post">
+          <form id="search-form" action="#">
             <input type="text" id="search-input" name="search" placeholder="Search..." />
           </form>
 
