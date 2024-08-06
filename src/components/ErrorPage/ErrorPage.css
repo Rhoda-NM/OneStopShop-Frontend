@@ -1,0 +1,52 @@
+.separator {
+    margin: 0;
+    border: none;
+    border-top: 1px solid #e0e0e0;
+}
+
+.error-page {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+    flex: 1;
+}
+
+.error-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    color: #161414;
+    margin-bottom: 20px;
+}
+
+.error-title {
+    font-size: 48px;
+    font-weight: bold;
+    color: #111010;
+    margin: 20px 0;
+}
+
+.error-message {
+    font-size: 18px;
+    color: #0a0a0a;
+    margin-bottom: 40px;
+}
+
+.back-home-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #ff4c3b;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.back-home-btn:hover {
+    background-color: #e8432d;
+}
+
