@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import LoginForm from "./LoginForm";
+import Header from "../Header/Header";
+import Footer from "./Footer";
 
 
 const LoginPage = () => {
   return (
     <PageWrapper>
       <MainContent>
+        <Header />
         <LoginSection>
           <ImageColumn>
             <LoginImage
@@ -19,6 +22,7 @@ const LoginPage = () => {
           </FormColumn>
         </LoginSection>
       </MainContent>
+      <Footer />
     </PageWrapper>
   );
 };
@@ -44,7 +48,7 @@ const MainContent = styled.main`
 
 const LoginSection = styled.section`
   display: flex;
-  margin-top: 53px;
+  margin-top: 150px;
   width: 100%;
   max-width: 1305px;
   @media (max-width: 991px) {
@@ -64,9 +68,9 @@ const ImageColumn = styled.div`
 `;
 
 const LoginImage = styled.img`
-  aspect-ratio: 1.03;
+  aspect-ratio: 1.0;
   object-fit: contain;
-  width: 100%;
+  width: 90%;
   border-radius: 0 4px 4px 0;
   @media (max-width: 991px) {
     max-width: 100%;

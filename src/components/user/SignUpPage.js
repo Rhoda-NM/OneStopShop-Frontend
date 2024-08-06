@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import SignUpForm from "./SignUpForm";
+import Header from "../Header/Header"
+import Footer from "./Footer";
 
 
 const SignUpPage = () => {
   return (
     <PageWrapper>
       <MainContent>
+        <Header />
         <SignUpSection>
           <ImageColumn>
             <SignUpImage
@@ -19,6 +22,7 @@ const SignUpPage = () => {
           </FormColumn>
         </SignUpSection>
       </MainContent>
+      <Footer />
     </PageWrapper>
   );
 };
@@ -44,11 +48,11 @@ const MainContent = styled.main`
 
 const SignUpSection = styled.section`
   display: flex;
-  margin-top: 53px;
+  margin-top: 150px;
   width: 100%;
   max-width: 1305px;
-  @media (max-width: 991px) {
-    flex-direction: column;
+  @media (max-width: 700px) {
+    flex-direction: column-reverse;
     align-items: stretch;
     gap: 0;
     max-width: 100%;
@@ -66,20 +70,20 @@ const ImageColumn = styled.div`
 const SignUpImage = styled.img`
   aspect-ratio: 1.03;
   object-fit: contain;
-  width: 100%;
+  width: 90%;
   border-radius: 0 4px 4px 0;
   @media (max-width: 991px) {
-    max-width: 100%;
+    max-width: 80%;
     margin-top: 40px;
   }
 `;
 
 const FormColumn = styled.div`
   width: 32%;
-  margin-left: 20px;
+  margin-left: 15%;
   @media (max-width: 991px) {
-    width: 100%;
-    margin-left: 0;
+    width: 80%;
+    margin-left: 50px;
   }
 `;
 

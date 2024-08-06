@@ -11,7 +11,7 @@ const StyledButton = styled.button`
   background-color: var(--Button2, #db4444);
   color: var(--Text, #fafafa);
   font: 500 16px Poppins, sans-serif;
-  padding: 16px 48px;
+  padding: 16px 24px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
