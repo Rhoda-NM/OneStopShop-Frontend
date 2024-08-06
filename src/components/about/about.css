@@ -25,8 +25,8 @@ header {
 /* About Section */
 
 .about {
-    background: #7D8184;
-    background: linear-gradient(360deg, #363738 0%, #7D8184 100%);
+    background: whitesmoke;
+    /* background: linear-gradient(360deg, #363738 0%, #7D8184 100%); */
     padding: 100px 0 20px 0;
     text-align: center;
 }
@@ -38,7 +38,7 @@ header {
 
 .about p {
     font-size: 1rem;
-    color: #000;
+    color: black;
     max-width: 800px;
     margin: 0 auto;
 }

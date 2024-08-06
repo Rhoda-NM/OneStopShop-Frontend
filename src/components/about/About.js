@@ -9,25 +9,22 @@ const About = () => {
       </header> */}
 
       <section className="about">
-        <h1>About Us</h1>
-        <p style={{ fontWeight: 'bold' }}>
+        {/* <h1>About Us</h1>
+        {/* <p style={{ fontWeight: 'bold' }}>
           GeeksforGeeks is a leading platform...
-        </p>
+        </p> */}
         <div className="about-info">
           <div className="about-img">
             <img 
-              src="https://media.geeksforgeeks.org/wp-content/uploads/20230824153359/371ba38b-8a03-4bff-916c-c3fa5396ceda.jfif" 
-              alt="Geeksforgeeks" 
+              src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQRt4w7xyeO9UvF_KowBNMSU5zhffroNOvb_23zkWsx-Cbzywcx" 
+              alt="AboutUs_Image" 
             />
           </div>
           <div>
+            <h1>    Our Story</h1>
             <p> 
-              GeeksforGeeks is a leading platform that provides computer science 
-              resources and coding challenges for programmers and technology 
-              enthusiasts, along with interview and exam preparations for upcoming 
-              aspirants. With a strong emphasis on enhancing coding skills and 
-              knowledge, it has become a trusted destination for over 12 million 
-              plus registered users worldwide.
+            Launced in 20124, OneStop is a leading onlineshopping platform,, offering a wide range of products for our customers
+            One Stop Products has more than 1 Million products to offer, growing at a very fast. One Stop Products offers a diverse assotment in categories ranging  from consumer.
             </p>
             <button>Read More...</button>
           </div>
