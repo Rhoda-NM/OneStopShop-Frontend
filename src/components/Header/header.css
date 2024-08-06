@@ -70,6 +70,7 @@ header.header nav.nav a {
   left: 0;
   background-color: var(--white-color);
   z-index: var(--z-fixed);
+  margin-bottom: 5px;
 }
 
 .nav {

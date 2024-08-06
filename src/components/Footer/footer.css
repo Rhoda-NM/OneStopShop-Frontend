@@ -32,4 +32,13 @@
   .footer-section ul li a:hover {
     text-decoration: underline;
   }
+  div.col-md-3.footer-section.locations{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  div.col-md-3.footer-section img{
+    height: 100px;
+    width: 200px;
+  }
   
