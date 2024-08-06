@@ -257,3 +257,35 @@ header {
     background-color: #555;
     color: #fff;
 }
+
+/* Services Section */
+.services {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    background-color: #f9f9f9;
+}
+
+.service-item {
+    text-align: center;
+    margin: 0 20px;
+    width: 200px;
+}
+
+.service-item i {
+    font-size: 3rem;
+    color: #db4445;
+    margin-bottom: 10px;
+}
+
+.service-item h3 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: #363738;
+}
+
+.service-item p {
+    font-size: 1rem;
+    color: #7D8184;
+}

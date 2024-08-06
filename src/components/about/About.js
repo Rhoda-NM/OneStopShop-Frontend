@@ -168,6 +168,25 @@ const About = () => {
           </div>
         </div>
       </section>
+      
+      <section className="services">
+  <div className="service-item">
+    <i className="fas fa-truck"></i>
+    <h3>Free and Fast Delivery</h3>
+    <p>Free delivery for all orders over $140</p>
+  </div>
+  <div className="service-item">
+    <i className="fas fa-headset"></i>
+    <h3>24/7 Customer Service</h3>
+    <p>Friendly 24/7 customer support</p>
+  </div>
+  <div className="service-item">
+    <i className="fas fa-undo"></i>
+    <h3>Money Back Guarantee</h3>
+    <p>We return money within 30 days</p>
+  </div>
+</section>
+
     </div>
   );
 };
