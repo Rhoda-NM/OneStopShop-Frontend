@@ -1,0 +1,296 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global Styles */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Header */
+
+header {
+    background-color: #fff;
+    color: #000;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* About Section */
+
+.about {
+    background: #fff;
+    padding: 100px 0 20px 0;
+    text-align: center;
+}
+
+.about-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+}
+
+.about-img {
+    width: 25rem;
+    height: 25rem;
+}
+
+.about-img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.about h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.about p {
+    font-size: 1rem;
+    color: #323030;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .about-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-img {
+        width: 60%;
+        height: auto;
+        margin-bottom: 1rem;
+    }
+
+    .about h1 {
+        font-size: 2rem;
+    }
+
+    .about p {
+        font-size: 0.9rem;
+    }
+}
+
+
+/* Stats Section */
+
+.stats {
+    padding: 30px 0;
+    background: whitesmoke; /* Match the body background color */
+}
+
+.stats .container {
+    width: 90%; /* Adjusted width for better centering */
+    max-width: 1200px; /* Optional: Set a max-width for large screens */
+    display: flex; /* Use flexbox to align items in one line */
+    justify-content: center; /* Center the cards horizontally */
+    gap: 20px; /* Increase space between cards */
+    margin: 0 auto; /* Center the container */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.stats .card {
+    flex: 1 1 250px; /* Adjust base width of the card */
+    max-width: 250px; /* Ensure cards do not grow too large */
+    height: 200px; /* Shorten the height of the card */
+    background: #fff;
+    transition: 0.5s;
+    position: relative; /* Ensure position is relative for the icon */
+}
+
+.stats .card:hover {
+    box-shadow: 0 30px 50px rgba(0, 0, 0, .2);
+}
+
+.stats .card .face {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stats .card .face.face1 {
+    box-sizing: border-box;
+    padding: 20px;
+    text-align: center;
+    background: #fff;
+    color: #db4445;
+}
+
+.stats .card .face.face1 h2 {
+    margin-top: 20px; /* Adjusted margin for better alignment */
+}
+
+.stats .card .face.face1 p {
+    font-size: 1rem; /* Adjusted font size */
+    color: #555;
+}
+
+.stats .card .face.face2 {
+    background-color: #db4445;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stats .card:hover .face.face2 {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: transparent;
+}
+
+.stats .card .face.face2 i {
+    font-size: 2em; /* Adjust icon size */
+    color: #fff;
+    transition: 0.5s;
+    opacity: 1; /* Make sure opacity is initially set to 1 */
+}
+
+.stats .card:hover .face.face2 i {
+    color: #c3073f;
+    font-size: 2em;
+    opacity: 0; /* Hide the icons on hover */
+}
+
+
+/* Team Section */
+
+.team {
+    padding: 30px 0;
+    text-align: center;
+    max-width: 1200px; /* Limit the width of the team section */
+    margin: 0 auto; /* Center the team section horizontally */
+}
+
+.team h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.team-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 20px;
+    padding: 0 30px; /* Add horizontal padding for extra space */
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 20rem;
+    height: 25rem;
+    margin-top: 10px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
+}
+
+.card-img {
+    width: 100%;
+    height: 12rem;
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.card-info button {
+    margin: 2rem 1rem;
+}
+
+.card-name {
+    font-size: 2rem;
+    margin: 10px 0;
+}
+
+.card-role {
+    font-size: 1rem;
+    color: #7D8184;
+    margin: 5px 0;
+}
+
+
+/* Button Styles for Team Section */
+
+.card-info .github-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #db4445;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-info .github-btn:hover {
+    background-color: #555;
+    color: #fff;
+}
+
+/* Services Section */
+.services {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    background-color: #f9f9f9;
+}
+
+.service-item {
+    text-align: center;
+    margin: 0 20px;
+    width: 200px;
+}
+
+.service-item i {
+    font-size: 3rem;
+    color: #db4445;
+    margin-bottom: 10px;
+    flex: 1; 
+}
+
+.service-item h3 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: #363738;
+}
+
+.service-item p {
+    font-size: 1rem;
+    color: #7D8184;
+}
