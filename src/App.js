@@ -1,16 +1,21 @@
-// import logo from './logo.svg';
-import './App.css';
-//import ContactForm from './components/contact/ContactForm';
-import Home from './components/Home/Home.js';
-import SignUpPage from './components/user/SignUpPage';
-import LoginPage from './components/user/LogInPage';
+import React from 'react';
+// import About from './components/about/About';
+import WishlistComponent from './components/wishlist/Wishlist';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <SignUpPage />
+      <WishlistComponent />
     </div>
   );
-}
+};
+
+
+// return (
+//   <div className="App">
+//     <About />
+//   </div>
+// );
+// };
 
 export default App;
