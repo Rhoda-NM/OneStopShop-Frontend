@@ -1,0 +1,81 @@
+.contact-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.contact-info {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.contact-items {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center; /* Center text horizontally */
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  flex-direction: column; /* Stack icon and text vertically */
+  margin-bottom: 20px;
+}
+
+.contact-item i {
+  font-size: 24px;
+  margin-bottom: 10px; /* Add space between icon and text */
+}
+
+.contact-item h4 {
+  margin: 0 0 5px;
+}
+
+.contact-item p {
+  margin: 0;
+}
+
+.contact-form {
+  border: 1px solid #ccc;
+  padding: 20px;
+  flex: 2;
+}
+
+.contact-form form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.contact-form form div {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form input, .contact-form textarea {
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+.contact-form button {
+  grid-column: span 2;
+  padding: 10px 20px;
+  background-color: #ff4b5c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background-color: #3cd128;
+}
