@@ -1,41 +1,101 @@
 import React from "react";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import styled from "styled-components";
 
-const SignUpForm = () => {
-  return (
-    <FormWrapper>
-      <FormHeader>
-        <Title>Create an account</Title>
-        <Subtitle>Enter your details below</Subtitle>
-      </FormHeader>
-      <Form>
-        <InputGroup>
-          <Label htmlFor="name">Name</Label>
-          <Input type="text" id="name" />
-        </InputGroup>
-        <InputGroup>
-          <Label htmlFor="emailOrPhone">Email or Phone Number</Label>
-          <Input type="text" id="emailOrPhone" />
-        </InputGroup>
-        <InputGroup>
-          <Label htmlFor="password">Password</Label>
-          <Input type="password" id="password" />
-        </InputGroup>
-        <SubmitButton type="submit">Create Account</SubmitButton>
-      </Form>
-      <LoginPrompt>
-        Already have account?
-        <LoginLink href="/login">
-          Log in
-          <UnderlineImg
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/84d9492dbb15ec3d9830565989c6169321d41dcbee9c2f22f81738a14f88cd6c?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884"
-            alt=""
-          />
-        </LoginLink>
-      </LoginPrompt>
-    </FormWrapper>
-  );
-};
+const validationSchema = Yup.object({
+    name: Yup.string()
+      .required('Name is required'),
+    email: Yup.string()
+      .required('Email is required')
+      .test('email', 'Invalid Email ', function(value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        //const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+        return emailRegex.test(value);
+      }),
+    password: Yup.string()
+      .min(6, 'Password must be at least 6 characters')
+      .required('Password is required'),
+  });
+  
+  const SignUpForm = () => {
+    const formik = useFormik({
+      initialValues: {
+        name: '',
+        email: '',
+        password: '',
+      },
+      validationSchema: validationSchema,
+      onSubmit: values => {
+        console.log('Form data', values);
+        // handle form submission
+      },
+    });
+  
+    return (
+      <FormWrapper>
+        <FormHeader>
+          <Title>Create an account</Title>
+          <Subtitle>Enter your details below</Subtitle>
+        </FormHeader>
+        <Form onSubmit={formik.handleSubmit}>
+          <InputGroup>
+            <Label htmlFor="name">Name</Label>
+            <Input
+              type="text"
+              id="name"
+              name="name"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.name}
+            />
+            {formik.touched.name && formik.errors.name ? (
+              <div>{formik.errors.name}</div>
+            ) : null}
+          </InputGroup>
+          <InputGroup>
+            <Label htmlFor="emailOrPhone">Email</Label>
+            <Input
+              type="text"
+              id="email"
+              name="email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.emailRegex}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <div>{formik.errors.email}</div>
+            ) : null}
+          </InputGroup>
+          <InputGroup>
+            <Label htmlFor="password">Password</Label>
+            <Input
+              type="password"
+              id="password"
+              name="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+            />
+            {formik.touched.password && formik.errors.password ? (
+              <div>{formik.errors.password}</div>
+            ) : null}
+          </InputGroup>
+          <SubmitButton type="submit">Create Account</SubmitButton>
+        </Form>
+        <LoginPrompt>
+          Already have account?
+          <LoginLink href="/login">
+            Log in
+            <UnderlineImg
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/84d9492dbb15ec3d9830565989c6169321d41dcbee9c2f22f81738a14f88cd6c?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884"
+              alt=""
+            />
+          </LoginLink>
+        </LoginPrompt>
+      </FormWrapper>
+    );
+  };
 
 const FormWrapper = styled.div`
   display: flex;
