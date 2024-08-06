@@ -1,13 +1,11 @@
-/* Wishlist Section */
+/* General Styles */
 .wishlist {
     padding: 30px 0;
     text-align: center;
-    background-color: #f5f5f5;
 }
 
 .wishlist h1 {
     font-size: 1.5rem;
-    color: #363738;
     margin-bottom: 20px;
 }
 
@@ -18,17 +16,25 @@
     gap: 15px;
 }
 
+/* Card Styles */
+.card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 12.5rem; /* Adjusted size */
+    position: relative;
+}
+
 .card {
     background-color: #fff;
+    border: 1px solid transparent; /* Invisible border */
     border-radius: 6px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     transition: transform 0.2s, box-shadow 0.2s;
-    width: 150px;  
-    height: 200px; 
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    height: 10rem; /* Adjusted size */
+    position: relative;
 }
 
 .card:hover {
@@ -38,7 +44,7 @@
 
 .card-img {
     width: 100%;
-    height: 100px;  
+    height: 70%; /* Adjusted size */
     overflow: hidden;
 }
 
@@ -48,34 +54,55 @@
     object-fit: cover;
 }
 
-.card-info {
-    padding: 10px;  
-    text-align: center;
-}
-
-.card-name {
-    font-size: 1rem; 
-    color: #363738;
-    margin: 5px 0;  
-}
-
-.card-description {
-    font-size: 0.8rem;  
-    color: #7D8184;
-    margin: 5px 0;
-}
-
 .card-btn {
-    padding: 5px 10px;  
-    border: none;
-    background-color: #db4445;
+    width: 100%;
+    background-color: black;
     color: #fff;
-    font-size: 0.8rem;  
+    border: none;
+    border-radius: 0;
+    padding: 10px 0;
+    font-size: 1rem;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.card-btn i {
+    margin-right: 8px;
 }
 
 .card-btn:hover {
-    background-color: #c3073f;
+    background-color: #c63c3d;
+}
+
+.card-details {
+    padding: 10px;
+    text-align: center;
+    margin-top: 12px; /* Creates space between card and details */
+}
+
+.card-name {
+    font-size: 1.5rem;
+    margin: 5px 0;
+}
+
+.rating i {
+    color: gold;
+    margin: 0 2px;
+}
+
+.card-description {
+    font-size: 0.875rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+.card-price {
+    font-size: 1rem;
+    color: red;
+    margin: 5px 0;
 }
