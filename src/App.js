@@ -1,10 +1,11 @@
 import React from 'react';
-import About from './components/about/About';
+// import About from './components/wishlist/Wishlist';
+import WishlistComponent from './components/wishlist/Wishlist';
 
 const App = () => {
   return (
     <div className="App">
-      <About />
+      <WishlistComponent />
     </div>
   );
 };
