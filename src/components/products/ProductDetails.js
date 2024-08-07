@@ -26,7 +26,7 @@ const ProductDetails = () => {
                 </div>
                 <div className="product-details-container">
                     <div className="product-image">
-                    <img  src={Image} alt="Havic HV G-92 Gamepad" />
+                        <img src={Image} alt="Havic HV G-92 Gamepad" />
                     </div>
                     <div className="product-info">
                         <h1 className="product-title">Havic HV G-92 Gamepad</h1>
@@ -37,7 +37,7 @@ const ProductDetails = () => {
                         </div>
                         <p className="product-price">$192.00</p>
                         <p className="product-description">
-                        PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.
+                            PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.
                         </p>
                         <div className="quantity-control">
                             <button onClick={decreaseQuantity} className="quantity-btn">-</button>
