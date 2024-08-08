@@ -1,14 +1,15 @@
 import React from 'react';
-// import About from './components/about/About';
-import WishlistComponent from './components/wishlist/Wishlist';
+import Wishlist from './components/wishlist/Wishlist';
 
-const App = () => {
+function App() {
   return (
     <div className="App">
-      <WishlistComponent />
+      <Wishlist />
     </div>
   );
-};
+}
+
+export default App;
 
 
 // return (
@@ -18,4 +19,3 @@ const App = () => {
 // );
 // };
 
-export default App;
