@@ -1,21 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import './ProductDetails.css';
 import Image from '../assets/fifa.png';
 
 const ProductDetails = () => {
+    const { id } = useParams();
+    const [product, setProduct] = useState(null);
+    const [error, setError] = useState(null);
     const [quantity, setQuantity] = useState(1);
 
-    const increaseQuantity = () => {
-        setQuantity(quantity + 1);
-    };
-
-    const decreaseQuantity = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
-        }
-    };
+    useEffect(() => {
+        const fetchRecipe = async () => {
+          try {
+            const response = await axios.get(`/api/products/${id}`);
+            setProduct(response.data);
+          } catch (err) {
+            setError(err);
+          }
+        };
+    
+        fetchRecipe();
+      }, [id]);
+    
+      if (error) return <p>Error loading recipe: {error.message}</p>;
+      if (!product) return <p>Loading...</p>; //redirect to error page
 
     return (
         <>
@@ -40,9 +51,9 @@ const ProductDetails = () => {
                         PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.
                         </p>
                         <div className="quantity-control">
-                            <button onClick={decreaseQuantity} className="quantity-btn">-</button>
+                            <button className="quantity-btn">-</button>
                             <input type="text" value={quantity} readOnly className="quantity-input" />
-                            <button onClick={increaseQuantity} className="quantity-btn">+</button>
+                            <button  className="quantity-btn">+</button>
                         </div>
                         <button className="buy-now-btn">Buy Now</button>
                     </div>
