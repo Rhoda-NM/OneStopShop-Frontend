@@ -1,0 +1,55 @@
+.Services_container{
+    margin-top: 6rem;
+    width: 1170px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+}
+.Full_services{
+    margin: 20px;
+
+    width: 936px;
+    height: 161px;
+    display: flex;
+    flex-direction: row;
+    gap: 88px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.icon_ad{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+}
+.icon_ad .icon{
+    border-radius: 50%;
+    background-color: white;
+    width: 70px;
+    height: 70px;
+    border: 10px solid black;
+}
+.icon_ad .icon img{
+    width:62px;
+    height: 62px;
+    border-radius: 50%;
+}
+.icon_ad .icon_text{
+    display: flex;
+    flex-direction: column;
+
+}
+.icon_ad .icon_text h2{
+    width: 144px;
+    height: 28px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 28px;
+    color: #000000;
+justify-content: center;
+margin-left: 9px;
+padding-left:10px; 
+}

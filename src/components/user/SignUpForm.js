@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import styled from "styled-components";
@@ -19,82 +20,100 @@ const validationSchema = Yup.object({
   });
   
   const SignUpForm = () => {
+    const [errorMessage, setErrorMessage] = useState('');
     const formik = useFormik({
-      initialValues: {
-        name: '',
-        email: '',
-        password: '',
-      },
+        initialValues: {
+            name: '',
+            email: '',
+            password: '',
+        },
       validationSchema: validationSchema,
-      onSubmit: values => {
+      onSubmit: async values => {
         console.log('Form data', values);
+        try {
+            const response = await axios.post('/user/register', {
+              username: values.name,
+              email: values.email,
+              password: values.password,
+            });
+            console.log('Form data', response.data);
+            
+            // Store the access token in local storage or a cookie
+            localStorage.setItem('access_token', response.data.access_token);
+            
+            //history.push('/dashboard');   Update with desired route
+        } catch (error) {
+            console.error('Error registering user', error.response.data);
+            setErrorMessage(error.response.data.error);
+        }
         // handle form submission
       },
     });
   
     return (
-      <FormWrapper>
+     <FormWrapper>
         <FormHeader>
-          <Title>Create an account</Title>
-          <Subtitle>Enter your details below</Subtitle>
+            <Title>Create an account</Title>
+            <Subtitle>Enter your details below</Subtitle>
         </FormHeader>
+        {errorMessage && <Error>{errorMessage}</Error>}
         <Form onSubmit={formik.handleSubmit}>
-          <InputGroup>
+            <InputGroup>
             <Label htmlFor="name">Name</Label>
             <Input
-              type="text"
-              id="name"
-              name="name"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
+                type="text"
+                id="name"
+                name="name"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.name}
             />
             {formik.touched.name && formik.errors.name ? (
-              <div>{formik.errors.name}</div>
+                <div>{formik.errors.name}</div>
             ) : null}
-          </InputGroup>
-          <InputGroup>
-            <Label htmlFor="emailOrPhone">Email</Label>
+            </InputGroup>
+            <InputGroup>
+            <Label htmlFor="email">Email</Label>
             <Input
-              type="text"
-              id="email"
-              name="email"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.emailRegex}
+                type="text"
+                id="email"
+                name="email"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
             />
             {formik.touched.email && formik.errors.email ? (
-              <div>{formik.errors.email}</div>
+                <div>{formik.errors.email}</div>
             ) : null}
-          </InputGroup>
-          <InputGroup>
+            </InputGroup>
+            <InputGroup>
             <Label htmlFor="password">Password</Label>
             <Input
-              type="password"
-              id="password"
-              name="password"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.password}
+                type="password"
+                id="password"
+                name="password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.password}
             />
             {formik.touched.password && formik.errors.password ? (
-              <div>{formik.errors.password}</div>
+                <div>{formik.errors.password}</div>
             ) : null}
-          </InputGroup>
-          <SubmitButton type="submit">Create Account</SubmitButton>
+            </InputGroup>
+            <SubmitButton type="submit">Create Account</SubmitButton>
         </Form>
         <LoginPrompt>
-          Already have account?
-          <LoginLink href="/login">
+            Already have an account?
+            <LoginLink href="/login">
             Log in
             <UnderlineImg
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/84d9492dbb15ec3d9830565989c6169321d41dcbee9c2f22f81738a14f88cd6c?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884"
-              alt=""
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/84d9492dbb15ec3d9830565989c6169321d41dcbee9c2f22f81738a14f88cd6c?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884"
+                alt=""
             />
-          </LoginLink>
+            </LoginLink>
         </LoginPrompt>
-      </FormWrapper>
-    );
+    </FormWrapper>
+  );
   };
 
 const FormWrapper = styled.div`
@@ -117,6 +136,11 @@ const Title = styled.h2`
 const Subtitle = styled.p`
   margin-top: 24px;
   font: 400 16px Poppins, sans-serif;
+`;
+
+const Error = styled.div`
+  color: red;
+  /* Add your styles here */
 `;
 
 const Form = styled.form`
