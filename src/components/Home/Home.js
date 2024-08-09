@@ -1,6 +1,7 @@
-import React from "react";
+import React,{} from "react";
 import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
+//import Footer from '../Footer/Footer';
+import Footer from '../user/Footer';
 import './Home.css';
 import './Lowest.css';
 import Advert from './Advert-removebg-preview.png';
@@ -12,6 +13,8 @@ import Service from './Service.svg';
 import Speaker from './Speaker.svg';
 import Womens from './Womens.svg'; 
 function Home(){
+
+  
      return(
         <>
         <Header />
