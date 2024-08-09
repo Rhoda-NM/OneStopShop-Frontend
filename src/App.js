@@ -8,13 +8,16 @@ import { AuthProvider, useAuth } from './AuthProvider'
 //import ProductDetails from './components/products/ProductDetails';
 //import Billings from './components/billing/Billings';
 import SignUpPage from './components/user/SignUpPage';
+import Billings from './components/billing/Billings';
 const App = () => {
   return (
     <AuthProvider>
       <div className="App">
         <SignUpPage />
       </div>
+      <Billings />
     </AuthProvider>
+    
     
   );
 };
