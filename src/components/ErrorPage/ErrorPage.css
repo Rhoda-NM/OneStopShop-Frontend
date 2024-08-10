@@ -49,34 +49,3 @@
 .back-home-btn:hover {
     background-color: #e8432d;
 }
-
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-    .error-title {
-        font-size: 36px;
-    }
-
-    .error-message {
-        font-size: 16px;
-    }
-
-    .back-home-btn {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 480px) {
-    .error-title {
-        font-size: 28px;
-    }
-
-    .error-message {
-        font-size: 14px;
-    }
-
-    .back-home-btn {
-        padding: 8px 16px;
-        font-size: 12px;
-    }
-}
