@@ -3,32 +3,22 @@
 import './App.css';
 =======
 import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './AuthProvider'
+// import { Route, Routes, Navigate } from 'react-router-dom';
+// import { AuthProvider, useAuth } from './AuthProvider'
 //import About from './components/about/About';
-import Wishlist from './components/wishlist/Wishlist';
+//import WishlistComponent from './components/wishlist/Wishlist';
 //import Home from './components/Home/Home';
 >>>>>>> origin/main
 //import ContactForm from './components/contact/ContactForm';
-import Home from './components/Home/Home.js';
-import SignUpPage from './components/user/SignUpPage';
-import LoginPage from './components/user/LogInPage';
-<<<<<<< HEAD
-import CartPage from './components/cart/CartPage';
-
-function App() {
-  return (
-    <div className="App">
-      <SignUpPage />
-    </div>
-=======
+//import ProductDetails from './components/products/ProductDetails';
+import Billings from './components/billing/Billings';
+// import SignUpPage from './components/user/SignUpPage';
 const App = () => {
   return (
-    <AuthProvider>
       <div className="App">
-        <Wishlist />
+        <Billings />
       </div>
-    </AuthProvider>
+   
     
 >>>>>>> origin/main
   );
