@@ -109,18 +109,3 @@
     border: 1px solid #ddd;
     border-radius: 4px;
 }
-
-/* Buy Now Button */
-.buy-now-btn {
-    padding: 12px 30px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #e74c3c;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.buy-now-btn:hover {
-    background-color: #c0392b;
-}
