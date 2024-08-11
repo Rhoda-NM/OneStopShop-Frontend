@@ -3,14 +3,14 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import './Home.css';
 import './Lowest.css';
-import Advert from './Advert-removebg-preview.png';
-import Delivery from'./delivery.svg'
-import Guarantee from './Guarantee.svg'
-import Gucci from './Gucci.svg';
-import PlayStation from './PlayStation.svg';
-import Service from './Service.svg';
-import Speaker from './Speaker.svg';
-import Womens from './Womens.svg'; 
+import Advert from './assets/Advert-removebg-preview.png';
+import Delivery from'./assets/delivery.svg'
+import Guarantee from './assets/Guarantee.svg'
+import Gucci from './assets/Gucci.svg';
+import PlayStation from './assets/PlayStation.svg';
+import Service from './assets/Service.svg';
+import Speaker from './assets/Speaker.svg';
+import Womens from './assets/Womens.svg'; 
 function Home(){
      return(
         <>
