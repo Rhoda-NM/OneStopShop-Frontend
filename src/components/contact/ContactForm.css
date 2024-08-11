@@ -1,12 +1,11 @@
 .contact-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* Change to column layout */
   padding: 20px;
 }
 
 .contact-info {
-  flex: 1;
-  margin-right: 20px;
+  margin-bottom: 20px; /* Add margin to separate from form */
 }
 
 .contact-items {
@@ -39,12 +38,11 @@
 .contact-form {
   border: 1px solid #ccc;
   padding: 20px;
-  flex: 2;
 }
 
 .contact-form form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column; /* Stack form fields vertically */
   gap: 20px;
 }
 
@@ -67,7 +65,6 @@
 }
 
 .contact-form button {
-  grid-column: span 2;
   padding: 10px 20px;
   background-color: #ff4b5c;
   color: white;
@@ -78,4 +75,23 @@
 
 .contact-form button:hover {
   background-color: #3cd128;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 10px;
+  }
+
+  .contact-info {
+    margin-bottom: 15px;
+  }
+
+  .contact-form {
+    padding: 15px;
+  }
+
+  .contact-form form {
+    gap: 15px;
+  }
 }
