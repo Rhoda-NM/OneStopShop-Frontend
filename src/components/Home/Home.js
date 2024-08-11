@@ -1,9 +1,11 @@
-import React,{} from "react";
+import React,{ useState,useEffect } from "react";
 import Header from '../Header/Header';
 //import Footer from '../Footer/Footer';
 import Footer from '../user/Footer';
+import Card from '../Card/Card';
 import './Home.css';
 import './Lowest.css';
+import CategoryList from '../Modal/Modal.js'
 import Advert from './Advert-removebg-preview.png';
 import Delivery from'./delivery.svg'
 import Guarantee from './Guarantee.svg'
@@ -12,12 +14,83 @@ import PlayStation from './PlayStation.svg';
 import Service from './Service.svg';
 import Speaker from './Speaker.svg';
 import Womens from './Womens.svg'; 
-function Home(){
 
-  
-     return(
-        <>
-        <Header />
+const products = async ()=>{
+  try {
+    const res = await fetch('/api/products?limit=4');
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    return await res.json();
+  } catch (err) {
+    console.error('Error fetching products:', err);
+  }
+}
+const fetchrecommendedProducts = async()=>{
+  try {
+    const res = await fetch('/api/recommended_products');
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    return await res.json();
+  } catch (err) {
+    console.error('Error fetching recommended products:', err);
+  }
+}
+const fetchrandomproducts = async(no)=>{
+  try {
+    const res = await fetch(`/api/products?limit=${no}`);
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    return await res.json();
+  } catch (err) {
+    console.error('Error fetching random products:', err);
+  }
+}
+function Home(){
+  const [productsList, setproductsList] =useState([])
+  const [recommendedProducts,setrecomendedProducts] =useState([])
+  const [loading,setisLoading] =useState(true)
+  useEffect(()=>{
+    products().then((data)=>{
+      if(data){
+        setproductsList(data)
+      }
+    })
+    fetchrecommendedProducts().then((data)=>{
+      if (data && data.length ){
+        if (data.length <4){
+          const tofetch = 4 - data.length
+          fetchrandomproducts(tofetch).then((randomProducts)=>{
+            if(randomProducts){
+              setrecomendedProducts(data.concat(randomProducts));
+            }
+            else{
+              setrecomendedProducts(data)
+            }
+          });
+        } 
+      }else{
+        fetchrandomproducts(4).then((randomProducts)=>{
+          if (randomProducts) {
+            setrecomendedProducts(randomProducts);
+          }
+        });
+      }
+    }).catch((error)=>{
+      console.error('Error fetching recommended products:', error);
+    })
+    setisLoading(false)
+  }, []);
+  const productsLister=(productsList)=>{
+        return productsList.map((product,index)=>{
+          return (<Card key={index} productName={product.name} image_url={product.image_url} price={product.price} id={product.id} />
+        )})
+  }
+return(
+<>
+<Header />
 <main>
   <div className="content">
   <div className="selection_container">
@@ -40,37 +113,14 @@ function Home(){
       </div>      
       <div className="categories"> 
         <div className="category-container">
-          <div className="category">
-            <i className="fas fa-mobile-alt"></i>
-            <p>Phones</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-desktop"></i>
-            <p>Computers</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-book"></i>
-            <p>Books</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-desktop"></i>
-            <p>Computers</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-camera"></i>
-            <p>Camera</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-tshirt"></i>
-            <p>Clothes</p>
-          </div>
+          {CategoryList()}
         </div>
       </div>
       <hr className="line" />    
     </div>
   </div>
   <div className="selection_container">
-    <div classNameName="head">
+    <div className="head">
       <div className="top">
         <div className="top-left">
         </div>
@@ -89,26 +139,7 @@ function Home(){
       </div>      
       <div className="categories"> 
         <div className="category-container">
-          <div className="category">
-            <i className="fas fa-mobile-alt"></i>
-            <p>Item1</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-desktop"></i>
-            <p>Item2</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-book"></i>
-            <p>Item3</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-desktop"></i>
-            <p>Item4</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-camera"></i>
-            <p>Item5</p>
-          </div>
+        {loading === true ? null : productsLister(productsList)}
         </div>
       </div>
       <hr className="line" />    
@@ -177,53 +208,14 @@ function Home(){
       </div>      
       <div className="categories"> 
         <div className="category-container">
-          <div className="category">
-            <i className="fas fa-mobile-alt"></i>
-            <p>Item1</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-desktop"></i>
-            <p>Item2</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-book"></i>
-            <p>Item3</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-desktop"></i>
-            <p>Item4</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-camera"></i>
-            <p>Item5</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-mobile-alt"></i>
-            <p>Item1</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-desktop"></i>
-            <p>Item2</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-book"></i>
-            <p>Item3</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-desktop"></i>
-            <p>Item4</p>
-          </div>
-          <div className="category">
-            <i className="fas fa-camera"></i>
-            <p>Item5</p> 
-        </div>
+            {loading === true ? null : productsLister(productsList)}
+        </div> 
       </div>
     </div>
     <div className="All_products_container">
       <button className="All_products" type="button">View All Products</button>
     </div>
   </div>
-</div>
 <div className="selection_container">
   <div className="head">
     <div className="top">
