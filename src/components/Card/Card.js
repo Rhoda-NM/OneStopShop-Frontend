@@ -1,71 +1,127 @@
-import React,{useState,useEffect} from "react";
-import { Link } from "react-router-dom";
-import './Card.css'
+import React, { useState, useEffect } from "react";
+import './Card.css';
 
+const fetchDiscountData = async (product_id) => {
+    try {
+        const res = await fetch(`/api/discounts/${product_id}`);
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return await res.json();
+    } catch (e) {
+        console.error('Error fetching discount data:', e);
+        return null;
+    }
+};
 
-const fetchData = (page) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          data: Array.from({ length: 4 }, (_, index) => ({
-            id: index + 1 + (page - 1) * 4,
-          })),
+const fetchRating = async (product_id) => {
+    try {
+        const res = await fetch(`/api/ratings/${product_id}`);
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return await res.json();
+    } catch (e) {
+        console.error('Error fetching rating:', e);
+        return null;
+    }
+};
+
+function isDateViable(isoDate) {
+    const givenDate = new Date(isoDate);
+    const currentDate = new Date();
+    return givenDate >= currentDate;
+}
+
+function discountCalculator(data, price, setDiscount) {
+    if (data && isDateViable(data.end_date)) {
+        const old_price = Math.round((100 * price) / (100 - data.discount_percentage));
+        setDiscount(old_price);
+    }
+}
+
+function RatingsCalculator(data, setRating) {
+    if (data && data.length > 0) {
+        let total_rating = 0;
+        let count = 0;
+        data.forEach((item) => {
+            total_rating += item.rating;
+            count++;
         });
-      }, 1000); // Assuming you want to simulate a delay of 1 second
-    });
-  };
-  
+        setRating(Math.round(total_rating / count));
+    } else {
+        setRating(null);
+    }
+}
+function RatingStars(rating) {
+    if (rating === null) {
+        return null;
+    }
+    let star_array = [];
+    for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+            star_array.push(<i key={i} className="bi bi-star-fill icon_yellow"></i>);
+        } else {
+            star_array.push(<i key={i} className="bi bi-star-fill no_fill"></i>);
+        }
+    }
+    return star_array;
+}
 
-function Card({ product }){
-    const { id, name, price, description, image_url, stock}= product;
-    //const [loading,setisLoading] = useState(true);  
-    //const [page,setPage]= useState(1);
-    //const [totalPages,setTotalPages] = useState(0)
-    return(
-        <div class="card">
-            <div class="Image_container">
-                <div class="img">
-                    <img src={image_url} alt="item_to_sell"/>
+function Card({ productName, image_url, price, id }) {
+    const [loading, setLoading] = useState(true);
+    const [rating, setRating] = useState(null);
+    const [discount, setDiscount] = useState(null);
+
+    useEffect(() => {
+        Promise.all([
+            fetchDiscountData(id).then((data) => discountCalculator(data, price, setDiscount)),
+            fetchRating(id).then((data) => RatingsCalculator(data, setRating))
+        ]).then(() => setLoading(false));
+    }, [id, price]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    return (
+        <div className="card">
+            <div className="Image_container">
+                <div className="img">
+                    <img src={image_url} alt="item_to_sell" />
                 </div>
-                <div class='img_icons'>
-                    <div class="icon_container">
-                        <div class="image_ellipse"></div>
-                        <Link to={`/wishlists/${product.id}`}> <i class="bi bi-heart"></i></Link>
+                <div className='img_icons'>
+                    <div className="icon_container">
+                        <div className="image_ellipse"></div>
+                        <i className="bi bi-heart"></i>
                     </div>
-                    <div class="icon_container">
-                        <div class="image_ellipse"></div>
-                        <Link to={`/products/${product.id}`}>
-                            <i class="bi bi-eye icon_view"></i>
-                        </Link>
-                        
+                    <div className="icon_container">
+                        <div className="image_ellipse"></div>
+                        <i className="bi bi-eye icon_view"></i>
                     </div>
                 </div>
             </div>
-            <div class="card_body">
-                <div class="card_title">
-                    <h2>{name}</h2>
+            <div className="card_body">
+                <div className="card_title">
+                    <h2>{productName}</h2>
                 </div>
-                <div class="price_area">
-                    <div class="price_container">
-                        <span class="current_price">{price}</span>
-                        <span class="old_price">$360</span>
+                <div className="price_area">
+                    <div className="price_container">
+                        <span className="current_price">${price}.00</span>
+                        {discount && <span className="old_price">${discount}.00</span>}
                     </div>
                 </div>
-                <div class="rating">
-                    <div class="rating_container">
-                        <i class="bi bi-star-fill icon_yellow"></i>
-                        <i class="bi bi-star-fill icon_yellow"></i>
-                        <i class="bi bi-star-fill icon_yellow"></i>
-                        <i class="bi bi-star-fill icon_yellow"></i>
-                        <i class="bi bi-star-fill icon_yellow"></i>
+                <div className="rating">
+                    <div className="rating_container">
+                        {RatingStars(rating)}
                     </div>
-                    <div class="rating_text">
-                        (65)
+                    <div className="rating_text">
+                        {rating !== null ? rating : ''}
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Card;
