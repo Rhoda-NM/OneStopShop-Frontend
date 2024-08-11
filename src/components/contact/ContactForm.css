@@ -1,30 +1,30 @@
 .contact-container {
   display: flex;
-  flex-direction: column; /* Change to column layout */
+  flex-direction: column; 
   padding: 20px;
 }
 
 .contact-info {
-  margin-bottom: 20px; /* Add margin to separate from form */
+  margin-bottom: 20px; 
 }
 
 .contact-items {
   border: 1px solid #ccc;
   padding: 20px;
   border-radius: 8px;
-  text-align: center; /* Center text horizontally */
+  text-align: center; 
 }
 
 .contact-item {
   display: flex;
   align-items: center;
-  flex-direction: column; /* Stack icon and text vertically */
+  flex-direction: column; 
   margin-bottom: 20px;
 }
 
 .contact-item i {
   font-size: 24px;
-  margin-bottom: 10px; /* Add space between icon and text */
+  margin-bottom: 10px; 
 }
 
 .contact-item h4 {
@@ -42,7 +42,7 @@
 
 .contact-form form {
   display: flex;
-  flex-direction: column; /* Stack form fields vertically */
+  flex-direction: column; 
   gap: 20px;
 }
 
@@ -77,7 +77,6 @@
   background-color: #3cd128;
 }
 
-/* Media query for smaller screens */
 @media (max-width: 768px) {
   .contact-container {
     padding: 10px;
