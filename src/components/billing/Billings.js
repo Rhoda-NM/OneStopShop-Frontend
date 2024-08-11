@@ -16,20 +16,38 @@ function Billings() {
     couponCode: ''
   });
 
-  const [products] = useState([
-    { name: 'LCD Monitor', price: 650, quantity: 1 },
-    { name: 'HI Gamepad', price: 1100, quantity: 1 }
-  ]);
-
-  const [subtotal, setSubtotal] = useState(0);
-  const [shipping] = useState(0); // Assuming free shipping
+  const [orderItems, setOrderItems] = useState([]);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    const newSubtotal = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
-    setSubtotal(newSubtotal);
-    setTotal(newSubtotal + shipping);
-  }, [products, shipping]);
+    // Fetch order data from the backend
+    const fetchOrderData = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/cart', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming JWT token is stored in localStorage
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setOrderItems(data.order_items);
+
+          // Calculate total price
+          const totalPrice = data.order_items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+          setTotal(totalPrice);
+        } else {
+          console.error('Error fetching order data');
+        }
+      } catch (error) {
+        console.error('Error fetching order data', error);
+      }
+    };
+
+    fetchOrderData();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,9 +57,27 @@ function Billings() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Order placed:', formData);
+    try {
+      const response = await fetch('http://localhost:5000/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming JWT token is stored in localStorage
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Order placed:', result);
+      } else {
+        console.error('Error placing order');
+      }
+    } catch (error) {
+      console.error('Error placing order', error);
+    }
   };
 
   return (
@@ -133,26 +169,28 @@ function Billings() {
             />
             <label htmlFor="saveInfo">Save this information for faster check-out next time</label>
           </div>
+          <button type="submit">Place Order</button>
         </form>
       </div>
       <div className="order-summary">
         <div className="product-summary">
-          {products.map((product, index) => (
-            <div className="product-item" key={index}>
-              <img src={`/${product.name.toLowerCase().replace(/ /g, '-')}.jpg`} alt={product.name} />
-              <span>{product.name}</span>
-              <span>${product.price}</span>
+          {orderItems.map(item => (
+            <div className="product-item" key={item.product_id}>
+              <img src={item.product_image} alt={item.product_name} />
+              <span>{item.product_name}</span>
+              <span>${item.price}</span>
+              <span>Quantity: {item.quantity}</span>
             </div>
           ))}
         </div>
         <div className="pricing-summary">
           <div className="subtotal">
             <span>Subtotal:</span>
-            <span>${subtotal}</span>
+            <span>${total}</span>
           </div>
           <div className="shipping">
             <span>Shipping:</span>
-            <span>{shipping === 0 ? 'Free' : `$${shipping}`}</span>
+            <span>Free</span>
           </div>
           <div className="total">
             <span>Total:</span>
