@@ -3,6 +3,7 @@ import Header from '../Header/Header';
 //import Footer from '../Footer/Footer';
 import Footer from '../user/Footer';
 import Card from '../Card/Card';
+import AllProducts from "../Modal/All_Products.js";
 import './Home.css';
 import './Lowest.css';
 import CategoryList from '../Modal/Modal.js'
@@ -213,7 +214,7 @@ return(
       </div>
     </div>
     <div className="All_products_container">
-      <button className="All_products" type="button">View All Products</button>
+        {AllProducts()}
     </div>
   </div>
 <div className="selection_container">
