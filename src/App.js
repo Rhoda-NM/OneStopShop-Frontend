@@ -9,7 +9,7 @@ import ContactForm from './components/contact/ContactForm';
 //import Billings from './components/billing/Billings';
 import SignUpPage from './components/user/SignUpPage';
 import LoginPage from './components/user/LogInPage';
-import CartPage from './components/CartPage/CartPage';
+//import CartPage from './components/CartPage/CartPage';
 import Products from './components/products/product';
 import ProductDetails from './pages/ProductDetails';
 import AddProduct from './components/products/AddProduct';
@@ -25,7 +25,6 @@ const App = () => {
             <Route exact path='user/signup' element={<SignUpPage />}/>
             <Route exact path='/products' element={<Products />}/>
             <Route exact path='/products/:id' element={<ProductDetails />}/>
-            <Route exact path='/cart' element={<CartPage />}/>
             <Route exact path='/about' element={<About />}/>
             <Route exact path='/contact' element={<ContactForm />}/>
             <Route exact path='/dashboard' element={<UserProfile />} />

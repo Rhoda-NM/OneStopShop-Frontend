@@ -1,64 +1,97 @@
 import React from "react";
-import './footer.css'
-import Image from '../assets/onestoplogo.svg'
+import styled from "styled-components";
+import FooterSection from "./FooterSection";
+import SocialLinks from "./SocialLinks";
+import SubscribeForm from "./SubscribeForm";
+import FooterDetail from "./FooterDetail";
 
-function Footer (){
-    return(
-        <footer className="footer text-white mt-5 p-4">
-        <div className="container">
-            <div className="row">
-                <div className="col-md-3 footer-section logo">
-                    <img src={Image} alt="OneLogo"/>
-                    <p>© 2024 One Stop Products All rights reserved</p>
-                </div>
-                <div className="col-md-3 footer-section social">
-                    <h4>Social</h4>
-                    <ul className="list-unstyled">
-                        <li><a href="#" className="text-white">Twitter</a></li>
-                        <li><a href="#" className="text-white">YouTube</a></li>
-                        <li><a href="#" className="text-white">Instagram</a></li>
-                    </ul>
-                </div>
-                <div className="col-md-3 footer-section company">
-                    <h4>Company</h4>
-                    <ul className="list-unstyled">
-                        <li><a href="#" className="text-white">About</a></li>
-                        <li><a href="#" className="text-white">Browse Products</a></li>
-                        <li><a href="#" className="text-white">Contact</a></li>
-                        <li><a href="#" className="text-white">Support</a></li>
-                    </ul>
-                </div>
-                <div className="col-md-3 footer-section faq">
-                    <h4>Frequently Asked Questions</h4>
-                    <ul className="list-unstyled">
-                        <li><a href="#" className="text-white">Sell On Behalf Terms of Service</a></li>
-                        <li><a href="#" className="text-white">Location</a></li>
-                    </ul>
-                </div>
-                <div className="col-md-3 footer-section locations">
-                    <h4>Locations</h4>
-                    <div className="location">
-                        <p><strong>Kai & Karo - Kiambu road</strong></p>
-                        <p>Northern Bypass</p>
-                        <p>0737665566</p>
-                        <p>Kiambu, Kenya</p>
-                    </div>
-                    <div className="location">
-                        <p><strong>Kai & Karo - Westlands</strong></p>
-                        <p>Westlands Business park, 4th floor.</p>
-                        <p>0716770077</p>
-                        <p>Off Chiromo lane</p>
-                    </div>
-                    <div className="location">
-                        <p><strong>Kai & Karo - Diamond plaza II Coming Soon</strong></p>
-                        <p>4th avenue parklands</p>
-                        <p>3rd floor (parking section)</p>
-                        <p>0748770777</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>   
-    )
-}
-export default Footer
+const Footer = () => {
+  const supportLinks = [
+    { text: "5th Avenue Broadway street NY", href: "#" },
+    { text: "nonstop@gmail.com", href: "mailto:nonstop@gmail.com" },
+    { text: "+254-733-435-531", href: "tel:+254733435531" },
+  ];
+
+  const accountLinks = [
+    { text: "My Account", href: "#" },
+    { text: "Login / Register", href: "#" },
+    { text: "Cart", href: "#" },
+    { text: "Wishlist", href: "#" },
+    { text: "Shop", href: "#" },
+  ];
+  const quickLinks = [
+    {text: "Facebook", href: "#"},
+    {text: "Instagram", href: "#"},
+    {text: "X", href: "#"},
+    {text: "Tiktok", href: "#"}
+  ]
+
+  return (
+    <FooterWrapper>
+      <FooterContent>
+        <FooterDetail />
+        <FooterSection title="Support" links={supportLinks} />
+        <FooterSection title="Account" links={accountLinks} />
+        <FooterSection title="Quick Link" links={quickLinks} />
+      </FooterContent>
+      <FooterDivider />
+      <FooterBottom>
+        <CopyrightText>
+          Copyright nonstop@2024 All rights reserved
+        </CopyrightText>
+      </FooterBottom>
+    </FooterWrapper>
+  );
+};
+
+const FooterWrapper = styled.footer`
+  background: var(--Button, #000);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 80px 30px 25px 0;
+  @media (max-width: 991px) {
+    padding-right: 20px;
+  }
+`;
+
+const FooterContent = styled.div`
+  align-self: center;
+  justify-content: center;
+  display: flex;
+  margin-left: 85px;
+  align-items: start;
+  gap: 40px 87px;
+  justify-content: center;
+  flex-wrap: wrap;
+  @media (max-width: 991px) {
+    max-width: 100%;
+  }
+`;
+
+const FooterDivider = styled.hr`
+  opacity: 0.4;
+  background-color: #fff;
+  height: 1px;
+  border: none;
+  margin: 60px 0 16px;
+  @media (max-width: 991px) {
+    max-width: 100%;
+    margin-top: 40px;
+  }
+`;
+
+const FooterBottom = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--Primary, #fff);
+  font: 400 16px Poppins, sans-serif;
+`;
+
+const CopyrightText = styled.p`
+  margin: 0;
+`;
+
+export default Footer;

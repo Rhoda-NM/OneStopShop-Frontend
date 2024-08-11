@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import './header.css';
-import Image from '../assets/onestoplogo.svg'
+import Image from '../assets/onestoplogo-_1_.svg'
 
 function Header (){
 const [isMenuOpen, setIsMenuOpen] = useState(false);
