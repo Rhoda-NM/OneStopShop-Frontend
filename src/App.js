@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './AuthProvider'
 import About from './components/about/About';
-//import Wishlist from './components/wishlist/Wishlist';
+import Wishlist from './components/wishlist/WishlistPage';
 import Home from './components/Home/Home';
 import ContactForm from './components/contact/ContactForm';
 //import ProductDetails from './components/products/ProductDetails';
@@ -15,6 +15,9 @@ import ProductDetails from './pages/ProductDetails';
 import AddProduct from './components/products/AddProduct';
 import SellerDb from './pages/SellerDb';
 import UserProfile from './pages/UserProfile';
+import MyOrders from './components/Profile/orders';
+import ProfilePage from './components/Dashboard/MyProducts/Profile/ProfilePage';
+
 const App = () => {
   return (
     <AuthProvider>
@@ -27,7 +30,12 @@ const App = () => {
             <Route exact path='/products/:id' element={<ProductDetails />}/>
             <Route exact path='/about' element={<About />}/>
             <Route exact path='/contact' element={<ContactForm />}/>
-            <Route exact path='/dashboard' element={<UserProfile />} />
+            <Route exact path="dashboard/*" element={<UserProfile />} >
+              <Route exact path='wishlist' element={<Wishlist />} />
+              <Route exact path='profile' element={<ProfilePage />} />
+              <Route exact path='orders'element={<MyOrders />} />
+            </Route>
+            
         </Routes>
       </div>
     </AuthProvider>

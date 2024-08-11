@@ -1,87 +1,93 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import axios from 'axios';
 
-const ProductTableBody = () => {
-    const list_data = [];
-    return (
-       <tbody className="border-0">
-          {list_data.map((item) => (
-             <tr key={item.id}>
-                <td>
-                   <div className="d-lg-flex align-items-center position-relative">
-                      <img src={item.img} alt="" className="p-img" />
-                      <div className="ps-lg-4 md-pt-10">
-                         <Link href="#" className="property-name tran3s color-dark fw-500 fs-20 stretched-link">{item.title}</Link>
-                         <div className="address">{item.address}</div>
-                         <strong className="price color-dark">${item.price}</strong>
-                      </div>
-                   </div>
-                </td>
-                <td>{item.date}</td>
-                <td>{item.view}</td>
-                <td>
-                   <div className={`property-status ${item.status_bg}`}>{item.status}</div>
-                </td>
-                <td>
-                   <div className="action-dots float-end">
-                      <button className="action-btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                         aria-expanded="false">
-                         <span></span>
-                      </button>
-                      <ul className="dropdown-menu dropdown-menu-end">
-                         <li><Link className="dropdown-item" href="#">View</Link></li>
-                         <li><Link className="dropdown-item" href="#">Share</Link></li>
-                         <li><Link className="dropdown-item" href="#"> Edit</Link></li>
-                         <li><Link className="dropdown-item" href="#"> Delete</Link></li>
-                      </ul>
-                   </div>
-                </td>
-             </tr>
-          ))}
-       </tbody>
-    )
- }
- 
+// Styled components for styling the table and its elements
+const StyledTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+`;
+
+const TableHeader = styled.th`
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+  padding: 10px;
+  border: 1px solid #ddd;
+`;
+
+const TableRow = styled.tr`
+  &:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  cursor: pointer;
+`;
+
+const TableCell = styled.td`
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+`;
+
+const ProductImage = styled.img`
+  width: 50px;
+  height: auto;
+`;
+
 const MyProducts = () => {
+  const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('/api/seller/products'); // Replace with your API endpoint
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const handleRowClick = (productId) => {
+    navigate(`/products/edit/${productId}`);
+  };
+
   return (
     <div className="dashboard-body">
-         <div className="position-relative">
-            <h2 className="main-title d-block d-lg-none">My Products</h2>
-            <div className="d-sm-flex align-items-center justify-content-between mb-25">
-               <div className="fs-16">Showing <span className="color-dark fw-500">1–5</span> of <span
-                  className="color-dark fw-500">40</span> results</div>
-               
-            </div>
+      <h2>My Products</h2>
+      <StyledTable>
+        <thead>
+          <tr>
+            <TableHeader>Img</TableHeader>
+            <TableHeader>SKU</TableHeader>
+            <TableHeader>Name</TableHeader>
+            <TableHeader>Price</TableHeader>
+            <TableHeader>Stock</TableHeader>
+            <TableHeader>Sales</TableHeader>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product) => (
+            <TableRow key={product.id} onClick={() => handleRowClick(product.id)}>
+              <TableCell>
+                <ProductImage src={product.image_url} alt={product.name} />
+              </TableCell>
+              <TableCell>{product.sku}</TableCell>
+              <TableCell>{product.name}</TableCell>
+              <TableCell>${product.price.toFixed(2)}</TableCell>
+              <TableCell>{product.stock}</TableCell>
+              <TableCell>{product.sales}</TableCell>
+            </TableRow>
+          ))}
+        </tbody>
+      </StyledTable>
+    </div>
+  );
+};
 
-            <div className="bg-white card-box p0 border-20">
-               <div className="table-responsive pt-25 pb-25 pe-4 ps-4">
-                  <table className="table property-list-table">
-                     <thead>
-                        <tr>
-                           <th scope="col">Name</th>
-                           <th scope="col">SKU</th>
-                           <th scope="col">Price</th>
-                           <th scope="col">Stock</th>
-                           <th scope="col">Action</th>
-                        </tr>
-                     </thead>
-                     <ProductTableBody  />
-                  </table>
-               </div>
-            </div>
-
-            <ul className="pagination-one d-flex align-items-center justify-content-center style-none pt-40">
-               <li className="me-3"><Link href="#">1</Link></li>
-               <li className="selected"><Link href="#">2</Link></li>
-               <li><Link href="#">3</Link></li>
-               <li><Link href="#">4</Link></li>
-               <li>....</li>
-               <li className="ms-2"><Link href="#" className="d-flex align-items-center">
-                  Last </Link></li>
-            </ul>
-         </div>
-      </div>
-  )
-}
-
-export default MyProducts
+export default MyProducts;

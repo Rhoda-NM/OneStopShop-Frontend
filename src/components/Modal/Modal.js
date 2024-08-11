@@ -17,8 +17,8 @@ const productsLister=(productsList)=>{
 }
 function Modal({isOpen,onClose,products}){
     if(!isOpen) return null;
-
-    console.log('Modal opened')
+    //console.log('Modal opened')
+    //console.log(products)
     return(
     <div className="modal">
       <div className="modal_content">
@@ -38,11 +38,11 @@ function CategoryList(){
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [products, setProducts] = useState([]);
     const categories = [
-      { iconClass: 'fas fa-mobile-alt', categoryName: 'Phones' },
-      { iconClass: 'fas fa-desktop', categoryName: 'Computers' },
-      { iconClass: 'fas fa-book', categoryName: 'Books' },
-      { iconClass: 'fas fa-camera', categoryName: 'Camera' },
-      { iconClass: 'fas fa-tshirt', categoryName: 'Clothes' },
+      { iconClass: 'fas fa-laptop-alt', categoryName: 'laptops' },
+      { iconClass: 'fas fa-desktop', categoryName: 'furniture' },
+      { iconClass: 'fas fa-book', categoryName: 'beauty' },
+      { iconClass: 'fas fa-camera', categoryName: 'mens-watches' },
+      { iconClass: 'fas fa-tshirt', categoryName: 'sunglasses' },
     ];  
     const handleCategoryClick = (categoryName) => {
         // Fetch products related to the category
@@ -54,7 +54,7 @@ function CategoryList(){
     
       const fetchProductsByCategory = async (categoryName) => {
         try {
-          const res = await fetch(`/api/products?category=${categoryName}`);
+          const res = await fetch(`/api/products/category/${categoryName}`);
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
           }

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const WishlistItem = ({ name, image, price, originalPrice, discount }) => {
+const WishlistItem = ({ id, name, image, price, originalPrice, discount , removeFromWishList}) => {
   return (
     <ItemWrapper>
       <ImageContainer>
@@ -10,6 +10,8 @@ const WishlistItem = ({ name, image, price, originalPrice, discount }) => {
         <WishlistIcon
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/2d9345dad452b03692cdbc613f709d144e723e1bbf5357d91182186f1925be37?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884"
           alt="Remove from wishlist"
+          onClick={() => removeFromWishList(id)}
+          
         />
       </ImageContainer>
       <AddToCartButton>

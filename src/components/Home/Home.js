@@ -7,14 +7,14 @@ import AllProducts from "../Modal/All_Products.js";
 import './Home.css';
 import './Lowest.css';
 import CategoryList from '../Modal/Modal.js'
-import Advert from './Advert-removebg-preview.png';
-import Delivery from'./delivery.svg'
-import Guarantee from './Guarantee.svg'
-import Gucci from './Gucci.svg';
-import PlayStation from './PlayStation.svg';
-import Service from './Service.svg';
-import Speaker from './Speaker.svg';
-import Womens from './Womens.svg'; 
+import Advert from './assets/Advert-removebg-preview.png';
+import Delivery from'./assets/delivery.svg'
+import Guarantee from './assets/Guarantee.svg'
+import Gucci from './assets/Gucci.svg';
+import PlayStation from './assets/PlayStation.svg';
+import Service from './assets/Service.svg';
+import Speaker from './assets/Speaker.svg';
+import Womens from './assets/Womens.svg'; 
 
 const products = async ()=>{
   try {
