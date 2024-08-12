@@ -1,18 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './CartForm.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 
-const CartForm = ({ initialCartItems, onCartUpdate }) => {
-  const [cartItems, setCartItems] = useState(initialCartItems);
+const CartForm = () => {
+  const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    calculateTotal();
-  }, [cartItems]);
+    fetchCartItems();
+  }, []);
 
-  const calculateTotal = () => {
-    const total = cartItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+  const fetchCartItems = async () => {
+    try {
+      const response = await fetch('/api/cart', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      const data = await response.json();
+      setCartItems(data.cart_items);
+      calculateTotal(data.cart_items);
+    } catch (error) {
+      console.error('Error fetching cart items:', error);
+    }
+  };
+
+
+  const calculateTotal = (items = cartItems) => {
+    const total = items.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
     setTotalPrice(total);
   };
 
@@ -23,22 +40,28 @@ const CartForm = ({ initialCartItems, onCartUpdate }) => {
         item.id === id ? { ...item, quantity: parseInt(quantity, 10) } : item
       )
     );
-    onCartUpdate(cartItems);
   };
 
   const handleRemoveItem = (id) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-    onCartUpdate(cartItems.filter((item) => item.id !== id));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/checkout', cartItems);
+      await axios.post('/api/checkout', cartItems);
       // Handle success response
     } catch (error) {
       console.error('There was an error processing the order!', error);
     }
+  };
+
+  const handleReturnToHome = () => {
+    navigate('/');
+  };
+
+  const handleAddMoreItems = () => {
+    navigate('/shop');
   };
 
   return (
@@ -83,7 +106,11 @@ const CartForm = ({ initialCartItems, onCartUpdate }) => {
           <div>
             <h2>Grand Total: ${totalPrice.toFixed(2)}</h2>
           </div>
-          <button type="submit">Proceed to Checkout</button>
+          <div className="cart-buttons">
+            <button type="button" onClick={handleReturnToHome}>Return to Homepage</button>
+            <button type="button" onClick={handleAddMoreItems}>Add More Items</button>
+            <button type="submit">Proceed to Checkout</button>
+          </div>
         </form>
       </div>
     </div>
