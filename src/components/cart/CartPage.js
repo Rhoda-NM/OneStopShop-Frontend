@@ -1,88 +1,57 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import axios from 'axios';
+import './CartPage.css';
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [total, setTotal] = useState(0);
-  const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([
+  // sample
+  ]);
 
-  useEffect(() => {
-    fetchCartItems();
-  }, []);
+  const updateQuantity = (id, quantity) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, quantity } : item
+      )
+    );
+  };
 
-  const fetchCartItems = async () => {
+  const removeItem = (id) => {
+    setCartItems((prevItems) =>
+      prevItems.filter((item) => item.id !== id)
+    );
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await fetch('/api/cart', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      const data = await response.json();
-      setCartItems(data.cart_items);
-      calculateTotal(data.cart_items);
+      const response = await axios.post('/api/cart', { items: cartItems });
+      console.log('Cart updated successfully:', response.data);
     } catch (error) {
-      console.error('Error fetching cart items:', error);
+      console.error('There was an error updating the cart!', error);
     }
-  };
-
-  const calculateTotal = (items) => {
-    const totalPrice = items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-    setTotal(totalPrice);
-  };
-
-  const handleRemoveFromCart = async (id) => {
-    try {
-      await fetch(`/api/cart/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      fetchCartItems();
-    } catch (error) {
-      console.error('Error removing item from cart:', error);
-    }
-  };
-
-  const handleReturnHome = () => {
-    navigate('/');
   };
 
   return (
-    <div className="cart-page">
-      <h1>Shopping Cart</h1>
-      {cartItems.length > 0 ? (
-        <table className="cart-table">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Total</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cartItems.map(item => (
-              <tr key={item.id}>
-                <td>{item.product.name}</td>
-                <td>${item.price.toFixed(2)}</td>
-                <td>{item.quantity}</td>
-                <td>${(item.price * item.quantity).toFixed(2)}</td>
-                <td>
-                  <button onClick={() => handleRemoveFromCart(item.id)}>Remove</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>Your cart is empty.</p>
-      )}
+    <div className="cart-container">
+      <div className="cart-items">
+        {cartItems.map((item) => (
+          <div key={item.id} className="cart-item">
+            <h4>{item.product.name}</h4>
+            <p>Price: ${item.product.price.toFixed(2)}</p>
+            <input
+              type="number"
+              min="1"
+              value={item.quantity}
+              onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
+            />
+            <p>Total: ${(item.product.price * item.quantity).toFixed(2)}</p>
+            <button onClick={() => removeItem(item.id)}>Remove</button>
+          </div>
+        ))}
+      </div>
       <div className="cart-summary">
-        <h2>Grand Total: ${total.toFixed(2)}</h2>
-        <p>Shipping Fee: Free</p>
-        <button onClick={handleReturnHome}>Return to Home Page</button>
+        <h2>Grand Total: ${cartItems.reduce((total, item) => total + (item.product.price * item.quantity), 0).toFixed(2)}</h2>
+        <button onClick={handleSubmit}>Update Cart</button>
       </div>
     </div>
   );
