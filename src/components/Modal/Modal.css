@@ -27,7 +27,7 @@
   .close {
     color: #aaa;
     float: right;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
   }
   
@@ -50,4 +50,9 @@
     margin: 10px;
     text-align: center;
   }
-  
+  .Product_container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
