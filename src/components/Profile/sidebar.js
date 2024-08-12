@@ -34,7 +34,7 @@ const Sidebar = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate('/login');
+      navigate('/user/login');
     } catch (err) {
       console.error('Logout error', err);
     }
