@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './wishlist.css'; // Make sure to create this CSS file with your provided styles
+//import './wishlist.css'; // Make sure to create this CSS file with your provided styles
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);

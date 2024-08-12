@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -21,6 +22,8 @@ const validationSchema = Yup.object({
   
   const SignUpForm = () => {
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -36,21 +39,27 @@ const validationSchema = Yup.object({
               email: values.email,
               password: values.password,
             });
-            console.log('Form data', response.data);
-            
+            //console.log('Form data', response.data);
             // Store the access token in local storage or a cookie
-            localStorage.setItem('access_token', response.data.access_token);
+            localStorage.setItem('token', response.data.access_token);
+            setShowModal(true); // Show modal on successful registration
+        
             
-            //history.push('/dashboard');   Update with desired route
         } catch (error) {
             console.error('Error registering user', error.response.data);
             setErrorMessage(error.response.data.error);
         }
-        // handle form submission
+        
       },
     });
+
+    const handleClose = () => {
+      setShowModal(false);
+      navigate('/'); 
+  };
   
     return (
+      <>
      <FormWrapper>
         <FormHeader>
             <Title>Create an account</Title>
@@ -104,7 +113,7 @@ const validationSchema = Yup.object({
         </Form>
         <LoginPrompt>
             Already have an account?
-            <LoginLink href="/login">
+            <LoginLink onClick={() => navigate('/user/login')}>
             Log in
             <UnderlineImg
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/84d9492dbb15ec3d9830565989c6169321d41dcbee9c2f22f81738a14f88cd6c?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884"
@@ -113,6 +122,22 @@ const validationSchema = Yup.object({
             </LoginLink>
         </LoginPrompt>
     </FormWrapper>
+
+    {showModal && (
+        <ModalBackground>
+            <ModalWrapper>
+                <ModalHeader>
+                    <ModalTitle>Welcome</ModalTitle>
+                    <Button onClick={handleClose}>X</Button>
+                </ModalHeader>
+                <ModalBody>Account created successfully</ModalBody>
+                <ModalFooter>
+                    <Button onClick={handleClose}>Close</Button>
+                </ModalFooter>
+            </ModalWrapper>
+        </ModalBackground>
+      )}
+    </>
   );
   };
 
@@ -204,6 +229,69 @@ const LoginLink = styled.a`
 const UnderlineImg = styled.img`
   width: 47px;
   margin-top: 4px;
+`;
+
+const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+`;
+
+// Modal Wrapper
+const ModalWrapper = styled.div`
+  background: white;
+  border-radius: 5px;
+  width: 500px;
+  max-width: 90%;
+  padding: 20px;
+`;
+
+// Modal Header
+const ModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #dee2e6;
+`;
+
+// Modal Title
+const ModalTitle = styled.h5`
+  margin: 0;
+`;
+
+// Modal Body
+const ModalBody = styled.div`
+  padding: 20px 0;
+`;
+
+// Modal Footer
+const ModalFooter = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+  border-top: 1px solid #dee2e6;
+`;
+
+// Button (you can customize this further)
+const Button = styled.button`
+  padding: 5px 15px;
+  background-color: #db4445;
+  color: #333;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #fff;
+  }
 `;
 
 export default SignUpForm;

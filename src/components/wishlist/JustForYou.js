@@ -71,7 +71,7 @@ const JustForYouSection = () => {
         <SeeAllButton>See All</SeeAllButton>
       </SectionHeader>
       <ProductGrid>
-        {productsData.map((product) => (
+        {recommendedProducts.map((product) => (
           <ProductCard key={product.id} {...product} />
         ))}
       </ProductGrid>

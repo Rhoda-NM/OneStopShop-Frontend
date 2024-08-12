@@ -1,6 +1,7 @@
 import React,{useState} from "react";
+import { Link } from "react-router-dom";
 import './header.css';
-import Image from '../assets/onestoplogo.svg'
+import Image from '../assets/onestoplogo-_1_.svg'
 
 function Header (){
 const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,34 +14,34 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
     return(
         <header className="header" id="header">
         <nav className="nav container">
-            <a href="#" className="nav__logo">                    
+            <Link to="/" className="nav__logo">                    
                 <img  src={Image}alt="OneLogo" />
-            </a>
+            </Link>
             <div className={`nav_menu ${isMenuOpen ?'show-menu':'' }`} id="nav-menu">
                 <ul className="nav_list" id="nav-list">
                     <li className="nav_item">
-                        <a href="#" className="nav_link">
+                        <Link to="/" className="nav_link">
                             <i className="bi bi-house"></i>
                             <span>Home</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="nav_item">
-                        <a href="#" className="nav_link">
+                        <Link to="/contact" className="nav_link">
                             <i className="bi bi-person-circle"></i>
                             <span>Contact</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="nav_item">
-                        <a href="#" className="nav_link">
+                        <Link to="/about" className="nav_link">
                             <i className="bi bi-card-text"></i>
                             <span>About</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="nav_item">
-                        <a href="#" className="nav_link">
+                        <Link to="/user/signup" className="nav_link">
                             <i className="bi bi-person-fill-add"></i>
                             <span>Sign Up</span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
                 <div className="nav__close" id="nav-close" onClick={handleToggle}>
@@ -53,8 +54,8 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
                 </form>
 
                 <div className="shop_icons">
-                    <a className="shop_icons_link"><i className="ri-shopping-cart-line navbar_icons"></i></a>
-                    <a className="shop_icons_link"><i className="ri-heart-line navbar_icons"></i></a>
+                    <Link to="/cart" className="shop_icons_link"><i className="ri-shopping-cart-line navbar_icons"></i></Link>
+                    <Link to="/wishlist" className="shop_icons_link"><i className="ri-heart-line navbar_icons"></i></Link>
                 </div>
             </div>
 

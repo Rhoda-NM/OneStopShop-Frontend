@@ -12,22 +12,31 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      fetch('/api/me', {
-        headers: { 'Authorization': `Bearer ${token}` },
-      })
-      .then(res => res.json())
-      .then(data => {
-        setUser(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setLoading(false);
-      });
+        fetch('/user/me', {
+            headers: { 'Authorization': `Bearer ${token}` },
+        })
+        .then(res => {
+            if (!res.ok) { // Check if the server response is not OK (e.g., 401, 403)
+                throw new Error('Token validation failed or token expired');
+            }
+            return res.json();
+        })
+        .then(data => {
+            setUser(data);
+            setLoading(false);
+        })
+        .catch(err => {
+            console.error(err);
+            // Clear the token from localStorage if it is expired or invalid
+            localStorage.removeItem('token');
+            // Optionally redirect to login page or show error
+            //navigate('/user/login');
+            setLoading(false);
+        });
     } else {
-      setLoading(false);
+        setLoading(false);
     }
-  }, []);
+}, []);
 
   const login = async (email, password) => {
     const response = await fetch('/user/login', {
@@ -38,7 +47,8 @@ export const AuthProvider = ({ children }) => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data.access_token);
+      //console.log(data);
+      //console.log(data.access_token);
       localStorage.setItem('token', data.access_token);
       setUser(data.user);
       navigate('/');
