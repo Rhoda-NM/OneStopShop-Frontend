@@ -10,7 +10,7 @@ import axios from 'axios';
         }
     })
     .then(response => console.log(response.data))
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.log('Error:', error));
     };
       
 

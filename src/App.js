@@ -29,6 +29,7 @@ const App = () => {
             <Route exact path='/products' element={<Products />}/>
             <Route exact path='/products/:id' element={<ProductDetails />}/>
             <Route exact path='/about' element={<About />}/>
+            <Route exact path='/addproduct' element={<AddProduct />}/>
             <Route exact path='/contact' element={<ContactForm />}/>
             <Route exact path='/sellerdash' element={<SellerDb />} />
             <Route exact path="dashboard/*" element={<UserProfile />} >

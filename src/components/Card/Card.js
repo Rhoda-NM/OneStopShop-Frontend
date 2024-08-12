@@ -117,7 +117,7 @@ function Card({ productName, image_url, price, id, addToWishlist }) {
                         <div className="image_ellipse"></div>
                         <i className="bi bi-heart"></i>
                     </div>
-                    <div className="icon_container" onClick={() => navigate(`/product/${id}`)}>
+                    <div className="icon_container" onClick={() => navigate(`/products/${id}`)}>
                         <div className="image_ellipse"></div>
                         <i className="bi bi-eye icon_view"></i>
                     </div>
