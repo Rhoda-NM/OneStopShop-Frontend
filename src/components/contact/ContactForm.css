@@ -1,31 +1,30 @@
 .contact-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; 
   padding: 20px;
 }
 
 .contact-info {
-  flex: 1;
-  margin-right: 20px;
+  margin-bottom: 20px; 
 }
 
 .contact-items {
   border: 1px solid #ccc;
   padding: 20px;
   border-radius: 8px;
-  text-align: center; /* Center text horizontally */
+  text-align: center; 
 }
 
 .contact-item {
   display: flex;
   align-items: center;
-  flex-direction: column; /* Stack icon and text vertically */
+  flex-direction: column; 
   margin-bottom: 20px;
 }
 
 .contact-item i {
   font-size: 24px;
-  margin-bottom: 10px; /* Add space between icon and text */
+  margin-bottom: 10px; 
 }
 
 .contact-item h4 {
@@ -39,12 +38,11 @@
 .contact-form {
   border: 1px solid #ccc;
   padding: 20px;
-  flex: 2;
 }
 
 .contact-form form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column; 
   gap: 20px;
 }
 
@@ -67,7 +65,6 @@
 }
 
 .contact-form button {
-  grid-column: span 2;
   padding: 10px 20px;
   background-color: #ff4b5c;
   color: white;
@@ -78,4 +75,22 @@
 
 .contact-form button:hover {
   background-color: #3cd128;
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 10px;
+  }
+
+  .contact-info {
+    margin-bottom: 15px;
+  }
+
+  .contact-form {
+    padding: 15px;
+  }
+
+  .contact-form form {
+    gap: 15px;
+  }
 }

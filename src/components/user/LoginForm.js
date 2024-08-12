@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import { useFormik } from 'formik';
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthProvider";
 import * as Yup from 'yup';
 import styled from "styled-components";
@@ -15,80 +16,103 @@ password: Yup.string()
 });
 
 const LoginForm = () => {
-const { login } = useAuth();
-const formik = useFormik({
-initialValues: {
-  email: '',
-  password: '',
-},
-validationSchema: validationSchema,
-onSubmit: async values => {
-  console.log('Form data', values);
-  // handle form submission
-  try {
-    await login(values.email, values.password);
-  } catch (err) {
-    console.error('Login error:', err);
-    
-  }
-},
-});
-
-return (
-  <FormContainer>
-    <Header>
-      <Title>Welcome Back!</Title>
-    </Header>
-    <Subtitle>Enter your details below</Subtitle>
-    <form onSubmit={formik.handleSubmit}>
-      <FormFields>
-        <InputWrapper>
-            <Label htmlFor="email">Email </Label>
-            <Input
-            id="email"
-            name="email"
-            type="email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-            />
-            {formik.touched.email && formik.errors.email ? (
-            <div>{formik.errors.email}</div>
-            ) : null}
-        </InputWrapper>
-        <InputWrapper>
-            <Label htmlFor="password">Password</Label>
-            <Input 
-                id="password"
-                name="password"
-                type="password"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
-            />
-            {formik.touched.password && formik.errors.password ? (
-            <div>{formik.errors.password}</div>
-          ) : null}
-        </InputWrapper>
+  const { login } = useAuth();
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: async values => {
+      //console.log('Form data', values);
+      // handle form submission
+      try {
+        await login(values.email, values.password);
+        setShowModal(true)
+      } catch (err) {
+        console.error('Login error:', err);
         
-      </FormFields>
-      <FormActions>
-        <Button type="submit">Log In</Button>
-        <ForgotPassword href="#">Forget Password?</ForgotPassword>
-      </FormActions>
-    </form>
-    <SignupPrompt>
-      Don't have an account?
-      <SignupLink href="/signup">
-         Sign Up
-        <UnderlineImg
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/84d9492dbb15ec3d9830565989c6169321d41dcbee9c2f22f81738a14f88cd6c?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884"
-          alt=""
-        />
-      </SignupLink>
-    </SignupPrompt>
-  </FormContainer>
-);
+      }
+    },
+  });
+  const handleClose = () => {
+    setShowModal(false);
+    navigate('/'); 
+  };
+
+  return (
+    <>
+    <FormContainer>
+      <Header>
+        <Title>Welcome Back!</Title>
+      </Header>
+      <Subtitle>Enter your details below</Subtitle>
+      <form onSubmit={formik.handleSubmit}>
+        <FormFields>
+          <InputWrapper>
+              <Label htmlFor="email">Email </Label>
+              <Input
+              id="email"
+              name="email"
+              type="email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+              />
+              {formik.touched.email && formik.errors.email ? (
+              <div>{formik.errors.email}</div>
+              ) : null}
+          </InputWrapper>
+          <InputWrapper>
+              <Label htmlFor="password">Password</Label>
+              <Input 
+                  id="password"
+                  name="password"
+                  type="password"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
+              />
+              {formik.touched.password && formik.errors.password ? (
+              <div>{formik.errors.password}</div>
+            ) : null}
+          </InputWrapper>
+          
+        </FormFields>
+        <FormActions>
+          <Button type="submit">Log In</Button>
+          <ForgotPassword href="#">Forget Password?</ForgotPassword>
+        </FormActions>
+      </form>
+      <SignupPrompt>
+        Don't have an account?
+        <SignupLink onClick={ () => navigate('/user/signup')}>
+          Sign Up
+          <UnderlineImg
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/84d9492dbb15ec3d9830565989c6169321d41dcbee9c2f22f81738a14f88cd6c?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884"
+            alt=""
+          />
+        </SignupLink>
+      </SignupPrompt>
+    </FormContainer>
+    {showModal && (
+        <ModalBackground>
+            <ModalWrapper>
+                <ModalHeader>
+                    <ModalTitle>Welcome</ModalTitle>
+                    <CloseButton onClick={handleClose}>X</CloseButton>
+                </ModalHeader>
+                <ModalBody>Account created successfully</ModalBody>
+                <ModalFooter>
+                    <CloseButton onClick={handleClose}>Close</CloseButton>
+                </ModalFooter>
+            </ModalWrapper>
+        </ModalBackground>
+      )}
+    </>
+  )
 };
 
 const FormContainer = styled.div`
@@ -187,4 +211,67 @@ const UnderlineImg = styled.img`
   width: 47px;
   margin-top: 4px;
 `;
+
+const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+`;
+
+// Modal Wrapper
+const ModalWrapper = styled.div`
+  background: white;
+  border-radius: 5px;
+  width: 500px;
+  max-width: 90%;
+  padding: 20px;
+`;
+
+// Modal Header
+const ModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #dee2e6;
+`;
+
+// Modal Title
+const ModalTitle = styled.h5`
+  margin: 0;
+`;
+
+// Modal Body
+const ModalBody = styled.div`
+  padding: 20px 0;
+`;
+
+// Modal Footer
+const ModalFooter = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+  border-top: 1px solid #dee2e6;
+`;
+
+const CloseButton = styled.button`
+  padding: 5px 15px;
+  background-color: #db4445;
+  color: #333;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #fff;
+  }
+`;
+
 export default LoginForm;

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './ContactForm.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -29,6 +32,8 @@ const ContactForm = () => {
   };
 
   return (
+    <>
+    <Header />
     <div className="contact-container">
       <div className="contact-info">
         <div className="contact-items">
@@ -100,6 +105,8 @@ const ContactForm = () => {
         </form>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

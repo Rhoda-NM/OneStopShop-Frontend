@@ -120,6 +120,7 @@
   
   button[type="button"]:hover,
   button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #ebeeeb;
+    color: #ff4b5c;
   }
   

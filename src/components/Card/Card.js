@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthProvider";
+import AddToWishlist from "../wishlist/AddWishlist";
 import './Card.css';
+
 
 const fetchDiscountData = async (product_id) => {
     try {
@@ -68,11 +72,29 @@ function RatingStars(rating) {
     return star_array;
 }
 
-function Card({ productName, image_url, price, id }) {
+function Card({ productName, image_url, price, id, addToWishlist }) {
+    const navigate = useNavigate();
+    const { user }= useAuth();
+    const token = localStorage.getItem('token');
     const [loading, setLoading] = useState(true);
     const [rating, setRating] = useState(null);
     const [discount, setDiscount] = useState(null);
 
+   
+    const handleAddToWishlist = async () => {
+        if (!user) {
+            navigate('/user/login');
+            return;
+        }
+
+        const added = await AddToWishlist(id, token);
+        if (added) {
+            alert('Added to wishlist successfully!');
+        } else {
+            alert('Failed to add to wishlist.');
+        }
+        
+    };
     useEffect(() => {
         Promise.all([
             fetchDiscountData(id).then((data) => discountCalculator(data, price, setDiscount)),
@@ -91,11 +113,11 @@ function Card({ productName, image_url, price, id }) {
                     <img src={image_url} alt="item_to_sell" />
                 </div>
                 <div className='img_icons'>
-                    <div className="icon_container">
+                    <div className="icon_container" onClick={handleAddToWishlist}>
                         <div className="image_ellipse"></div>
                         <i className="bi bi-heart"></i>
                     </div>
-                    <div className="icon_container">
+                    <div className="icon_container" onClick={() => navigate(`/products/${id}`)}>
                         <div className="image_ellipse"></div>
                         <i className="bi bi-eye icon_view"></i>
                     </div>

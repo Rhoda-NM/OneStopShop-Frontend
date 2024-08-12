@@ -4,44 +4,11 @@ import styled from "styled-components";
 import WishlistItem from "./WishlistItem";
 import axios from "axios";
 
-const wishlistData = [
-  {
-    id: 1,
-    name: "Gucci duffle bag",
-    image:
-      "https://cdn.builder.io/api/v1/image/assets/TEMP/5122d01a4fe541587ff713bce6702edffb26575426f80b242297cd8380270930?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884",
-    price: 960,
-    originalPrice: 1160,
-    discount: 35,
-  },
-  {
-    id: 2,
-    name: "RGB liquid CPU Cooler",
-    image:
-      "https://cdn.builder.io/api/v1/image/assets/TEMP/354194eb5f04a52b2469cb1113e341eb5ea17534ff884bd8fde6892e668e1394?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884",
-    price: 1960,
-  },
-  {
-    id: 3,
-    name: "GP11 Shooter USB Gamepad",
-    image:
-      "https://cdn.builder.io/api/v1/image/assets/TEMP/1eaf9648e44c0d90ac33966f10491ae0821650caea9df60acf8fa148140bd85a?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884",
-    price: 550,
-  },
-  {
-    id: 4,
-    name: "Quilted Satin Jacket",
-    image:
-      "https://cdn.builder.io/api/v1/image/assets/TEMP/0e5463396806d0194e3dff386c4f84681eaf7e9a0658ed3ef5e7573f6908cbbe?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884",
-    price: 750,
-  },
-];
 
 const WishlistItems = () => {
   const { id } = useParams();
   const token = localStorage.getItem('token');
   const [wishlist, setWishlist] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchWishlist();
@@ -60,7 +27,35 @@ const WishlistItems = () => {
     }
   };
 
-  //const addToWishlist = async (productId) => {
+
+  const removeFromWishlist = async (productId) => {
+    try {
+      const response = await axios.delete(`/api/wishlist/${productId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      console.log(response.data)
+      setWishlist(response.data);
+    } catch (error) {
+      console.error('Error removing from wishlist:', error);
+    }
+  };
+
+  return (
+    <WishlistSection>
+      <WishlistHeader>
+        <h2>Wishlist (4)</h2>
+        <MoveAllButton>Move All To Cart</MoveAllButton>
+      </WishlistHeader>
+      <ItemsGrid>
+        {wishlist.map((item) => (
+          <WishlistItem key={item.id} {...item} removeFromWishList={removeFromWishlist} />
+        ))}
+      </ItemsGrid>
+    </WishlistSection>
+  );
+};
+
+//const addToWishlist = async (productId) => {
     /*if (!token) {
       navigate('/login'); // Redirect to login page
       return;
@@ -72,31 +67,6 @@ const WishlistItems = () => {
       console.error('Error adding to wishlist:', error);
     }
   };*/
-
-  const removeFromWishlist = async (productId) => {
-    try {
-      const response = await axios.delete(`/api/wishlist/${productId}`);
-      setWishlist(response.data);
-    } catch (error) {
-      console.error('Error removing from wishlist:', error);
-    }
-  };
-
-  return (
-    <WishlistSection>
-      <WishlistHeader>
-        <h2>Wishlist (4)</h2>
-        <MoveAllButton>Move All To Bag</MoveAllButton>
-      </WishlistHeader>
-      <ItemsGrid>
-        {wishlistData.map((item) => (
-          <WishlistItem key={item.id} {...item} />
-        ))}
-      </ItemsGrid>
-    </WishlistSection>
-  );
-};
-
 const WishlistSection = styled.section`
   max-width: 1170px;
   margin: 0 auto;
