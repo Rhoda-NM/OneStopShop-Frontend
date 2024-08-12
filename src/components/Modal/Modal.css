@@ -1,4 +1,4 @@
-   .modal {
+   .modal.Area{
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -19,7 +19,7 @@
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 90%;
     overflow-y: auto;
     position: fixed;
   }
@@ -27,7 +27,7 @@
   .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
   }
   
@@ -40,6 +40,8 @@
   
   .product_list {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
   }
   
