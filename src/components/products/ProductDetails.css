@@ -19,7 +19,6 @@
     text-decoration: underline;
 }
 
-/* Product Details Layout */
 .product-details-container {
     display: flex;
     justify-content: space-between;
@@ -80,7 +79,6 @@
     margin-bottom: 30px;
 }
 
-/* Quantity Control */
 .quantity-control {
     display: flex;
     align-items: center;
@@ -110,7 +108,6 @@
     border-radius: 4px;
 }
 
-/* Buy Now Button */
 .buy-now-btn {
     padding: 12px 30px;
     font-size: 16px;
@@ -119,6 +116,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-right: 10px;
 }
 
 .buy-now-btn:hover {
