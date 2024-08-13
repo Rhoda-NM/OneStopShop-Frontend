@@ -1,8 +1,8 @@
 import React from 'react';
-import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider } from './AuthProvider'; // Assuming AuthProvider is correctly implemented
 import About from './components/about/About';
-import WishlistPage from './components/wishlist/WishlistPage';
+import WishlistPage from './components/wishlist1/WishlistPage'; // Corrected import
 import Home from './components/Home/Home';
 import ContactForm from './components/contact/ContactForm';
 import SignUpPage from './components/user/SignUpPage';
@@ -21,23 +21,26 @@ const App = () => {
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="user/login" element={<LoginPage />} />
-          <Route path="user/signup" element={<SignUpPage />} />
+          <Route path="/user/login" element={<LoginPage />} />
+          <Route path="/user/signup" element={<SignUpPage />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/addproduct" element={<AddProduct />} />
           <Route path="/contact" element={<ContactForm />} />
           <Route path="/sellerdash" element={<SellerDb />} />
+          <Route path="/wishlist" element={<WishlistPage />} /> {/* Ensure this route is defined */}
+
           
-          <Route path="dashboard/*" element={<UserProfile />}>
-            <Route path="wishlist" element={<WishlistPage />} />
+          {/* Routes for dashboard and user profile */}
+          <Route path="/dashboard" element={<UserProfile />}>
+            <Route path="wishlist" element={<WishlistPage />} /> {/* Corrected route */}
             <Route path="profile" element={<ProfilePage />} />
             <Route path="orders" element={<MyOrders />} />
           </Route>
           
           {/* Redirect or catch-all routes */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
         </Routes>
       </div>
     </AuthProvider>

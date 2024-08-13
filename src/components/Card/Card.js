@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthProvider";
-import AddToWishlist from "../wishlist/AddWishlist";
+import AddToWishlist from "../wishlist1/AddToWishlist";
 import './Card.css';
 
 
@@ -72,6 +72,8 @@ function RatingStars(rating) {
     return star_array;
 }
 
+
+
 function Card({ productName, image_url, price, id, addToWishlist }) {
     const navigate = useNavigate();
     const { user }= useAuth();
@@ -82,17 +84,23 @@ function Card({ productName, image_url, price, id, addToWishlist }) {
 
    
     const handleAddToWishlist = async () => {
+        console.log('Add to Wishlist button clicked');
         if (!user) {
             navigate('/user/login');
             return;
         }
 
-        const added = await AddToWishlist(id, token);
-        if (added) {
-            alert('Added to wishlist successfully!');
-        } else {
-            alert('Failed to add to wishlist.');
-        }
+        try {
+            const added = await AddToWishlist(id, token);
+            if (added) {
+                alert('Added to wishlist successfully!');
+            } else {
+                alert('Failed to add to wishlist.');
+            }
+        } catch (error) {
+            console.error('Error adding to wishlist:', error);
+            alert('An error occurred. Please try again.');
+        } 
         
     };
     useEffect(() => {
