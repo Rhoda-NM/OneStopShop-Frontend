@@ -2,6 +2,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    position: relative;
 }
 
 .breadcrumb {
@@ -28,14 +29,14 @@
 }
 
 .product-image img {
-    width: 100%;
+    width: 80%; 
     height: auto;
     border-radius: 8px;
 }
 
 .product-info {
     flex: 1;
-    max-width: 600px;
+    max-width: 500px;
 }
 
 .product-title {
@@ -124,3 +125,128 @@
 .buy-now-btn:hover {
     background-color: #c0392b;
 }
+
+/* Wishlist Button */
+.wishlist-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #27ae60;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.wishlist-btn:hover {
+    background-color: #1e8449;
+}
+
+.related-items {
+    margin-top: 40px;
+}
+
+.related-items h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.related-items-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.related-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    width: calc(25% - 20px);
+}
+
+.related-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.related-item p {
+    margin: 10px 0;
+}
+/* Ensure header stays above content */
+.product-details-page {
+    position: relative;
+    padding-top: 60px;
+}
+
+.product-details-container {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 20px;
+}
+
+.product-image {
+    flex: 1;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.product-image img {
+    width: 100%;
+    max-width: 500px; 
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-info {
+    flex: 1;
+    max-width: 100%;
+    padding: 20px;
+}
+
+.related-items {
+    margin-top: 40px;
+}
+
+.related-items-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.related-item {
+    flex: 1;
+    min-width: 200px; 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.related-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .product-details-container {
+        flex-direction: column;
+    }
+
+    .product-info {
+        padding: 10px;
+    }
+
+    .related-items-container {
+        flex-direction: column;
+    }
+
+    .related-item {
+        min-width: 100%;
+    }
+}
+
