@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Card from '../Card/Card';
 import './ProductDetails.css';
-import { useAuth } from '../../AuthProvider';
-import AddToWishlist from '../wishlist/AddWishlist';
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const { user } = useAuth();
-  const token = localStorage.getItem('token');
-
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -41,20 +35,6 @@ const ProductDetails = () => {
 
     fetchProduct();
   }, [id]);
-
-  const handleAddToWishlist = async () => {
-    if (!user) {
-      navigate('/user/login');
-      return;
-    }
-
-    const added = await AddToWishlist(product.id, token);
-    if (added) {
-      alert('Added to wishlist successfully!');
-    } else {
-      alert('Failed to add to wishlist.');
-    }
-  };
 
   if (error) return <p>Error loading product: {error.message}</p>;
   if (!product) return <p>Loading...</p>;
@@ -87,7 +67,7 @@ const ProductDetails = () => {
               <button className="quantity-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
             </div>
             <button className="buy-now-btn">Buy Now</button>
-            <button className="wishlist-btn" onClick={handleAddToWishlist}>Add to Wishlist</button>
+            <button className="wishlist-btn">Add to Wishlist</button> {/* Add to Wishlist button */}
           </div>
         </div>
         <div className="related-items">
@@ -97,12 +77,25 @@ const ProductDetails = () => {
               <Card 
                 key={item.id}
                 productName={item.title}
-                image_url={item.thumbnail}
+                image_url={item.images[0]}
                 price={item.price}
                 id={item.id}
               />
             ))}
           </div>
+        </div>
+        <div className="product-reviews">
+          <h2>Customer Reviews</h2>
+          {product.reviews.length > 0 ? (
+            product.reviews.map(review => (
+              <div key={review.id} className="review">
+                <p><strong>{review.username}</strong> - {review.rating} ★</p>
+                <p>{review.comment}</p>
+              </div>
+            ))
+          ) : (
+            <p>No reviews yet.</p>
+          )}
         </div>
       </div>
       <Footer />
