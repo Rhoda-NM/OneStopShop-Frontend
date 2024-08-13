@@ -150,7 +150,6 @@ The project leverages Redux Toolkit to streamline state management and ensure ef
 ## Selectors:
 1. getCartItems: Retrieves the list of items in the cart.
 2. getCartTotal: Calculates the total price of items in the cart.
-3. 
 ## 2.Products
 
 1. Purpose: Handles product-related data, including fetching, searching, and filtering products.
