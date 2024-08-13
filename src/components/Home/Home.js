@@ -6,7 +6,7 @@ import Card from '../Card/Card';
 import AllProducts from "../Modal/All_Products.js";
 import './Home.css';
 import './Lowest.css';
-import CategoryList from '../Modal/Modal.js'
+import CategoryList from '../Modal/ModalPage.js'
 import Advert from './assets/Advert-removebg-preview.png';
 import Delivery from'./assets/delivery.svg'
 import Guarantee from './assets/Guarantee.svg'
@@ -57,12 +57,14 @@ function Home(){
     products().then((data)=>{
       if(data){
         setproductsList(data)
+        console.log("data loaded")
       }
     })
     fetchrecommendedProducts().then((data)=>{
       if (data && data.length ){
-        if (data.length <4){
+        if (data.length < 4){
           const tofetch = 4 - data.length
+          console.log(data.length)
           fetchrandomproducts(tofetch).then((randomProducts)=>{
             if(randomProducts){
               setrecomendedProducts(data.concat(randomProducts));
@@ -84,6 +86,7 @@ function Home(){
     })
     setisLoading(false)
   }, []);
+  console.log()
   const productsLister=(productsList)=>{
         return productsList.map((product,index)=>{
           return (<Card key={index} productName={product.name} image_url={product.image_url} price={product.price} id={product.id} />

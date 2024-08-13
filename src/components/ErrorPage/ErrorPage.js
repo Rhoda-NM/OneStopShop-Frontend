@@ -1,20 +1,22 @@
 import React from "react";
 import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
+import Footer from '../user/Footer';
 import './ErrorPage.css';
 
 function ErrorPage() {
     return (
         <>
             <Header />
-            <hr className="separator"/>
             <div className="error-page">
-                <div className="error-container">
-                    <p className="breadcrumb">Home / 404 Error</p>
-                    <h1 className="error-title">404 Not Found</h1>
+                    <div className="Error_title">
+                        <h1 className="error-title">404 Not Found</h1>
+                    </div>
+                    <div className="error_message">
                     <p className="error-message">Page not found. Return to home page.</p>
-                    <a href="/" className="back-home-btn">Back to home page</a>
-                </div>
+                    </div>
+                    <div className="error_button">
+                        <a href="/" className="back-home-btn">Back to home page</a>
+                    </div>
             </div>
             <Footer />
         </>
