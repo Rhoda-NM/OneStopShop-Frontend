@@ -54,7 +54,7 @@ const JustForYouSection = () => {
 
   const fetchRecommendations = async () => {
     try {
-      const response = await axios.get('/wishlist/recommendations');
+      const response = await axios.get('/api/wishlist/recommendations');
       setRecommendedProducts(response.data);
     } catch (error) {
       console.error('Error fetching recommendations:', error);
