@@ -1,70 +1,158 @@
-# Getting Started with Create React App
+![alt text](src/components/assets/onestoplogo.svg)
+## One Stop Products Platform Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Table of Contents
+Overview
+Features
+Project Structure
+Installation
+Usage
+Components
+State Management
+API Integration
+Styling
+Testing
+Contributing
+License
+## Overview
+Welcome to the One Stop Products Platform Frontend repository! This project is the frontend of a comprehensive e-commerce platform designed to offer users an intuitive and seamless shopping experience. Built using React, Redux Toolkit, and Styled Components, the platform is robust, scalable, and fully responsive.
 
-## Available Scripts
+## Features
+1. User Authentication: Secure login and registration with JWT-based authentication.
+2. Product Listing: Dynamic product catalog with search, filters, and sorting options.
+3. Product Details: Detailed product pages with images, ratings, reviews, and related items.
+4. Shopping Cart: Add, remove, and update product quantities with real-time price updates.
+5. Wishlist: Save your favorite items for later.
+6. Checkout Process: Streamlined checkout flow with payment integration.
+7. Admin Dashboard: Manage products, orders, and user accounts.
+8. Responsive Design: Optimized for both desktop and mobile devices.
+9. SEO Friendly: Meta tags, Open Graph, and structured data implemented for better search engine visibility.
 
-In the project directory, you can run:
+## Project Structure
+OneStopShop-Frontend/
+│
+├── public/                 # Static assets
+│   └── index.html          # HTML entry point
+│
+├── src/
+│   ├── components/         # Reusable React components
+│   ├── pages/              # Application pages (Home, ProductDetails, Cart, etc.)
+│   ├── stores/             # Redux Toolkit stores for state management
+│   ├── utils/              # Utility functions
+│   ├── App.js              # Main app component
+│   ├── index.js            # React entry point
+│   └── ...                 # Other config files and assets
+│
+├── .env                    # Environment variables
+├── package.json            # Dependencies and scripts
+├── README.md               # Project documentation
+└── ...                     # Other config files (ESLint, Prettier, etc.)
+## Installation
+To get started with the project, follow these steps:
 
-### `npm start`
+## Clone the Repository:
+1. git clone https://github.com/Rhoda-NM/OneStopShop-Frontend.git
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Navigate to the Project Directory:
+2. cd OneStopShop-Frontend
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Install Dependencies:
+3. Make sure you have Node.js installed, then run:
+**npm install**
 
-### `npm test`
+## Set Up Environment Variables:
+4. Create a .env file in the root directory and add necessary environment variables:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    REACT_APP_API_URL=http://localhost:5000/api
 
-### `npm run build`
+## Start the Development Server:
+**npm start**
+This will run the app in development mode. Open http://localhost:3000 to view it in the browser.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Usage
+Running the Application
+Once the development server is running, you can explore the various features of the platform:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Home Page: Browse the product catalog.
+2. Product Details: Click on a product to view detailed information, including images, descriptions, and reviews.
+3. Shopping Cart: Add products to your cart and proceed to checkout.
+4. Admin Dashboard: If you have admin privileges, manage products, orders, and users from the dashboard.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Building for Production
+To create an optimized build for production, run:
+**npm run build**
+The build folder will contain the optimized app ready for deployment.
 
-### `npm run eject`
+## Components
+## Header
+The Header component provides navigation links and access to the user profile and cart. It’s responsive and adapts to mobile screens.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Footer
+The Footer component contains useful links, contact information, and social media icons.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## ProductDetails
+The ProductDetails component is the core of the product detail page, displaying images, ratings, reviews, and related products.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Cart
+The Cart component manages the shopping cart, allowing users to add, remove, and adjust quantities of items.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## State Management
+The project uses Redux Toolkit for efficient state management. The stores are organized as follows:
 
-## Learn More
+1. cart: Manages the state of the shopping cart.
+2. products: Handles product data, including fetching, searching, and filtering.
+3. user: Manages user authentication and profile information.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Sample Redux Store Configuration
+import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from './cart';
+import productsReducer from './products';
+import userReducer from './user';
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+export const store = configureStore({
+  reducer: {
+    cart: cartReducer,
+    products: productsReducer,
+    user: userReducer,
+  },
+});
+## API Integration
+All data is fetched from the backend API, which is built using Flask. The API endpoints include:
 
-### Code Splitting
+GET /api/products: Fetch the list of products.
+GET /api/products/:id: Fetch detailed information about a specific product.
+POST /api/cart: Add items to the shopping cart.
+POST /api/auth/login: Authenticate users.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Styling
+The project uses Styled Components for styling React components. This approach allows for scoped and dynamic styling, ensuring that styles are only applied to the components that need them.
 
-### Analyzing the Bundle Size
+## Testing
+Testing is an important part of the development process. The project uses Jest and React Testing Library for unit and integration tests.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Running Tests
+To run the tests, simply execute:
+        **npm test**
+This will run all tests and output the results in the terminal.
+## Contributing
+We welcome contributions to the project! If you have an idea for a feature, or if you've found a bug, feel free to open an issue or submit a pull request.
 
-### Making a Progressive Web App
+## Contributors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **Scrum Master**: [Rhoda Muya](https://github.com/Rhoda-NM)
+- **Group Members**:
+  - [Mariya Mwanjiru](https://github.com/mwanjiru12)
+  - [Bravin Kibet](https://github.com/Bravinkibet)
+  - [Ephy Muiruri](https://github.com/Ephymuiruri)
+  - [Brian Onduso](https://github.com/BrianOnduso0)
+  - [Lennis Maina](https://github.com/Maichmaina)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Contribution Guidelines
+1.Fork the repository.
+2.Create a new branch with your feature.
+3.Commit your changes and push to your fork.
+4.Submit a pull request with a detailed explanation of your changes.
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
