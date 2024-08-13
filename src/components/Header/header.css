@@ -121,19 +121,15 @@ header.header nav.nav a {
   .Search_area {
     visibility: hidden;
     display: flex;
-    flex-direction: column;
-    row-gap: 1rem;
-    align-items: center;
-    justify-content: left;
-    left: -100%;
+    background-color: white(255, 0, 212);
     margin-top: 50px;
   }
   
-  .Search_area {
+  /*.Search_area {
     transition: transform 0.4s ease-out, visibility 0.4s;
     transform: translateX(-150px);
     transition-delay: 0.2s;
-  }
+  }*/
   
   .nav_item {
     transform: translateX(-150px);
@@ -253,9 +249,8 @@ header.header nav.nav a {
 }
 
 .show-form input {
-  transition: visibility 0.4s ease-out, left 0.4s ease-out;
   background-color: white;
-  border: 1px solid;
+  border: none;
 }
 
 /* Animation link when displaying menu */

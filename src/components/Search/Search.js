@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from './Search.svg';
 import './Search.css';
 import SearchModal from './SearchModal';
@@ -15,7 +15,7 @@ const Search = () => {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
       const data = await res.json();
-      return data || []; // Return empty array if data is undefined or null
+      return data || [];
     } catch (err) {
       console.error('Error fetching search data:', err);
       return [];
@@ -23,19 +23,15 @@ const Search = () => {
   };
 
   const handleSearch = () => {
-    if (query.trim() === '') return; // Don't search if the query is empty
+    if (query.trim() === '') return;
     fetch_search_results(query).then((data) => {
       setResults(data);
       setIsModalOpen(true);
     });
   };
 
-  const headerJsx = results.length > 0 ? (
-    <h2>{results.length} Products Related to "{query}"</h2>
-  ) : null;
-
   return (
-    <div>
+    <div className="input">
       <input
         type="text"
         className="search-bar"
@@ -50,7 +46,9 @@ const Search = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         products={results}
-        headerJsx={headerJsx}
+        headerJsx={results.length > 0 && (
+          <h2>{results.length} Products Related to "{query}"</h2>
+        )}
       />
     </div>
   );
