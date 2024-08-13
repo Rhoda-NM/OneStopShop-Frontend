@@ -1,15 +1,12 @@
 import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './AuthProvider'
+import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
+import { AuthProvider } from './AuthProvider'; // Assuming AuthProvider is correctly implemented
 import About from './components/about/About';
-import Wishlist from './components/wishlist/WishlistPage';
+import WishlistPage from './components/wishlist/WishlistPage';
 import Home from './components/Home/Home';
 import ContactForm from './components/contact/ContactForm';
-//import ProductDetails from './components/products/ProductDetails';
-//import Billings from './components/billing/Billings';
 import SignUpPage from './components/user/SignUpPage';
 import LoginPage from './components/user/LogInPage';
-//import CartPage from './components/CartPage/CartPage';
 import Products from './components/products/product';
 import ProductDetails from './pages/ProductDetails';
 import AddProduct from './components/products/AddProduct';
@@ -21,37 +18,30 @@ import ProfilePage from './components/Dashboard/MyProducts/Profile/ProfilePage';
 const App = () => {
   return (
     <AuthProvider>
-       <div>
+      <div>
         <Routes>
-            <Route exact path='/' element={<Home />}/>
-            <Route exact path='user/login' element={<LoginPage />}/>
-            <Route exact path='user/signup' element={<SignUpPage />}/>
-            <Route exact path='/products' element={<Products />}/>
-            <Route exact path='/products/:id' element={<ProductDetails />}/>
-            <Route exact path='/about' element={<About />}/>
-            <Route exact path='/addproduct' element={<AddProduct />}/>
-            <Route exact path='/contact' element={<ContactForm />}/>
-            <Route exact path='/sellerdash' element={<SellerDb />} />
-            <Route exact path="dashboard/*" element={<UserProfile />} >
-              <Route exact path='wishlist' element={<Wishlist />} />
-              <Route exact path='profile' element={<ProfilePage />} />
-              <Route exact path='orders'element={<MyOrders />} />
-            </Route>
-            
+          <Route path="/" element={<Home />} />
+          <Route path="user/login" element={<LoginPage />} />
+          <Route path="user/signup" element={<SignUpPage />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/addproduct" element={<AddProduct />} />
+          <Route path="/contact" element={<ContactForm />} />
+          <Route path="/sellerdash" element={<SellerDb />} />
+          
+          <Route path="dashboard/*" element={<UserProfile />}>
+            <Route path="wishlist" element={<WishlistPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="orders" element={<MyOrders />} />
+          </Route>
+          
+          {/* Redirect or catch-all routes */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </AuthProvider>
-    
-    
   );
 };
-
-
-// return (
-//   <div className="App">
-//     <About />
-//   </div>
-// );
-// };
 
 export default App;
