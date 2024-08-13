@@ -96,14 +96,88 @@ The ProductDetails component is the core of the product detail page, displaying 
 ## Cart
 The Cart component manages the shopping cart, allowing users to add, remove, and adjust quantities of items.
 
+## CartPage
+The CartPage component displays a detailed view of the items in the user's shopping cart, including the total price and checkout options.
+
+## Contact
+The Contact component provides users with a form to reach out to customer support or the platform's team.
+
+## Dashboard
+The Dashboard component is where admins and users can manage their profiles, orders, products, and other platform-related activities.
+
+## ErrorPage
+The ErrorPage component handles the display of error messages and redirections when users encounter issues navigating the platform.
+
+## Footer
+The Footer component contains links, contact information, and social media icons, appearing at the bottom of each page.
+
+## Header
+The Header component provides navigation links, a search bar, and access to the user profile and cart, adapting to mobile screens.
+
+## Home
+The Home component serves as the landing page, showcasing featured products, promotions, and categories.
+
+## Modal
+The Modal component is a reusable UI element for displaying pop-up dialogs, including confirmations, alerts, and other notifications.
+
+## Products
+The Products component handles the display of all products available on the platform, including filtering and sorting options.
+
+## Profile
+The Profile component allows users to view and edit their personal information, order history, and preferences.
+
+## Search
+The Search component provides a search bar and results page, allowing users to find products by keywords, categories, and other filters.
+
+## User
+The User component manages user-specific information and functionality, including login, registration, and profile settings.
+
+## Wishlist
+The Wishlist component lets users save their favorite products for future purchases.
+
 ## State Management
-The project uses Redux Toolkit for efficient state management. The stores are organized as follows:
+The project leverages Redux Toolkit to streamline state management and ensure efficient data handling across the application. Redux Toolkit simplifies Redux store configuration, reduces boilerplate code, and provides powerful tools for managing application state.
 
-1. cart: Manages the state of the shopping cart.
-2. products: Handles product data, including fetching, searching, and filtering.
-3. user: Manages user authentication and profile information.
+## Stores Overview
+## 1.Cart
+1. Purpose: Manages the state of the shopping cart, including the items added, their quantities, and total price.
+## Key Actions:
+1. addItem: Adds a new item to the cart or updates the quantity if the item already exists.
+2. removeItem: Removes an item from the cart.
+3. updateQuantity: Updates the quantity of a specific item in the cart.
+4. clearCart: Clears all items from the cart.
+## Selectors:
+1. getCartItems: Retrieves the list of items in the cart.
+2. getCartTotal: Calculates the total price of items in the cart.
+3. 
+## 2.Products
 
+1. Purpose: Handles product-related data, including fetching, searching, and filtering products.
+## Key Actions:
+1. fetchProducts: Fetches the list of products from the backend API.
+2. searchProducts: Filters products based on user input or criteria.
+3. filterProducts: Applies filters (e.g., category, price range) to the product list.
+## Selectors:
+1. getAllProducts: Retrieves the full list of products.
+getFilteredProducts: Retrieves products based on applied filters.
+2. getProductById: Retrieves detailed information about a specific product.
+
+## User
+1. Purpose: Manages user authentication, profile information, and session state.
+## 1.Key Actions:
+1. login: Authenticates the user and stores authentication tokens.
+2. logout: Logs the user out and clears session data.
+updateProfile: Updates the user's profile information.
+3. register: Registers a new user account.
+## 2.Selectors:
+1. getUserInfo: Retrieves the current user's profile information.
+2. isAuthenticated: Checks if the user is authenticated.
+3. getAuthToken: Retrieves the authentication token for API requests.
+   
 ## Sample Redux Store Configuration
+Here’s how the Redux store is configured using Redux Toolkit:
+
+javascript
 import { configureStore } from '@reduxjs/toolkit';
 import cartReducer from './cart';
 import productsReducer from './products';
@@ -116,6 +190,12 @@ export const store = configureStore({
     user: userReducer,
   },
 });
+
+1. cartReducer: Manages the state and actions related to the shopping cart.
+2. productsReducer: Handles product data and actions for fetching, searching, and filtering.
+3. userReducer: Manages user authentication and profile state.
+This setup ensures that each part of the application has a dedicated slice of state, making it easier to maintain and scale the application.
+
 ## API Integration
 All data is fetched from the backend API, which is built using Flask. The API endpoints include:
 
