@@ -5,11 +5,8 @@ import About from './components/about/About';
 import WishlistPage from './components/wishlist1/WishlistPage'; // Corrected import
 import Home from './components/Home/Home';
 import ContactForm from './components/contact/ContactForm';
-<<<<<<< HEAD
-=======
 import ProductDetails from './components/products/ProductDetails';
 //import Billings from './components/billing/Billings';
->>>>>>> origin/main
 import SignUpPage from './components/user/SignUpPage';
 import LoginPage from './components/user/LogInPage';
 import Products from './components/products/product';
@@ -52,8 +49,6 @@ const App = () => {
   );
 };
 
-<<<<<<< HEAD
-=======
 
 // return (
 //   <div className="App">
@@ -62,5 +57,4 @@ const App = () => {
 // );
 // };
 
->>>>>>> origin/main
 export default App;
