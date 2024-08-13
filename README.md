@@ -1,7 +1,7 @@
 ![alt text](src/components/assets/onestoplogo.svg)
 ## One Stop Products Platform Frontend
 
-Table of Contents
+## Table of Contents
 Overview
 Features
 Project Structure
@@ -14,6 +14,7 @@ Styling
 Testing
 Contributing
 License
+
 ## Overview
 Welcome to the One Stop Products Platform Frontend repository! This project is the frontend of a comprehensive e-commerce platform designed to offer users an intuitive and seamless shopping experience. Built using React, Redux Toolkit, and Styled Components, the platform is robust, scalable, and fully responsive.
 
@@ -46,7 +47,7 @@ OneStopShop-Frontend/
 ├── .env                    # Environment variables
 ├── package.json            # Dependencies and scripts
 ├── README.md               # Project documentation
-└── ...                     # Other config files (ESLint, Prettier, etc.)
+└── ...                     # Other config files
 ## Installation
 To get started with the project, follow these steps:
 
