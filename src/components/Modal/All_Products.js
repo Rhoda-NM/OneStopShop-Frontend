@@ -1,25 +1,7 @@
 import React,{useState} from "react";
 import './Modal.css'
 import Card from '../Card/Card';
-
-function Modal({isOpen,onClose,products}){
-    if(!isOpen) return null;
-
-    console.log('Modal opened')
-    return(
-    <div className="modal">
-      <div className="modal_content">
-        <span className="close" onClick={onClose}>&times;</span>
-        <h2>Products</h2>
-        <div className="product_list">
-          {products.map((product, index) => (
-            <Card key={index} productName={product.name} image_url={product.image_url} price={product.price} id={product.id} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+import Modal from "./Modal";
 
 function AllProducts(){
     const [isModalOpen, setIsModalOpen] = useState(false);
