@@ -5,6 +5,12 @@
     position: relative;
 }
 
+/* Ensure header stays above content */
+.product-details-page {
+    position: relative;
+    padding-top: 60px; /* Adjusted padding to prevent overlap */
+}
+
 .breadcrumb {
     font-size: 14px;
     color: #666;
@@ -23,20 +29,28 @@
 /* Product Details Layout */
 .product-details-container {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 30px;
+    flex-wrap: wrap; 
+    gap: 20px;
+}
+
+.product-image {
+    flex: 1;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .product-image img {
-    width: 80%; 
+    width: 100%;
+    max-width: 500px; 
     height: auto;
     border-radius: 8px;
 }
 
 .product-info {
     flex: 1;
-    max-width: 500px;
+    max-width: 100%;
+    padding: 20px;
 }
 
 .product-title {
@@ -158,65 +172,6 @@
 }
 
 .related-item {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    text-align: center;
-    width: calc(25% - 20px);
-}
-
-.related-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-}
-
-.related-item p {
-    margin: 10px 0;
-}
-/* Ensure header stays above content */
-.product-details-page {
-    position: relative;
-    padding-top: 60px;
-}
-
-.product-details-container {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 20px;
-}
-
-.product-image {
-    flex: 1;
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.product-image img {
-    width: 100%;
-    max-width: 500px; 
-    height: auto;
-    border-radius: 8px;
-}
-
-.product-info {
-    flex: 1;
-    max-width: 100%;
-    padding: 20px;
-}
-
-.related-items {
-    margin-top: 40px;
-}
-
-.related-items-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.related-item {
     flex: 1;
     min-width: 200px; 
     border: 1px solid #ddd;
@@ -232,6 +187,30 @@
     border-radius: 4px;
 }
 
+.related-item p {
+    margin: 10px 0;
+}
+
+/* Review Section */
+.product-reviews {
+    margin-top: 40px;
+}
+
+.product-reviews h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.review {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.review p {
+    margin: 5px 0;
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
     .product-details-container {
         flex-direction: column;
@@ -249,4 +228,3 @@
         min-width: 100%;
     }
 }
-
