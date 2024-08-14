@@ -7,10 +7,11 @@ const AddToWishlist = async (productId, token) => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({ productId })
+      body: JSON.stringify({ product_id: productId }) // Ensure the key matches what the server expects
     });
 
     if (response.ok) {
+      console.log('Product added to wishlist successfully');
       return true;
     } else if (response.status === 401) {
       console.error('Failed to add to wishlist: UNAUTHORIZED');
