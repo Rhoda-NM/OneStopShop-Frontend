@@ -17,6 +17,7 @@ import SellerDb from './pages/SellerDb';
 import UserProfile from './pages/UserProfile';
 import MyOrders from './components/Profile/orders';
 import ProfilePage from './components/Dashboard/MyProducts/Profile/ProfilePage';
+import Cart from './components/cart/Cart';
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
               <Route exact path='wishlist' element={<Wishlist />} />
               <Route exact path='profile' element={<ProfilePage />} />
               <Route exact path='orders'element={<MyOrders />} />
+              <Route exact path= 'cart' element={<Cart />} />
             </Route>
             
         </Routes>

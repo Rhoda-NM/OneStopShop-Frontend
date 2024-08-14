@@ -25,6 +25,28 @@ const ProductDetails = () => {
     fetchProduct();
   }, [id]);
 
+  const handleAddToCart = async () => {
+    try {
+      const response = await axios.post('/api/cart', {
+        product_id: product.id,
+        quantity: quantity,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (response.status === 200) {
+        alert('Item added to cart successfully!');
+      } else {
+        alert('Failed to add item to cart.');
+      }
+    } catch (err) {
+      console.error('Error adding item to cart:', err);
+      alert('There was an error adding the item to the cart.');
+    }
+  };
+
   if (error) return <p>Error loading product: {error.message}</p>;
   if (!product) return <p>Loading...</p>;
 
@@ -56,6 +78,7 @@ const ProductDetails = () => {
               <button className="quantity-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
             </div>
             <button className="buy-now-btn">Buy Now</button>
+            <button className="add-to-cart-btn" onClick={handleAddToCart}>Add to Cart</button>
           </div>
         </div>
       </div>

@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import CartPage from './CartPage'
 
 const CartForm = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchCartItems();
-  }, []);
-
-  const fetchCartItems = async () => {
+  const fetchCartItems = useCallback(async () => {
     try {
       const response = await fetch('/api/cart', {
         headers: {
@@ -24,8 +21,11 @@ const CartForm = () => {
     } catch (error) {
       console.error('Error fetching cart items:', error);
     }
-  };
+  }, []); // Using an empty array if there are no dependencies to prevent re-creation.
 
+  useEffect(() => {
+    fetchCartItems();
+  }, [fetchCartItems]);
 
   const calculateTotal = (items = cartItems) => {
     const total = items.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
@@ -39,10 +39,12 @@ const CartForm = () => {
         item.id === id ? { ...item, quantity: parseInt(quantity, 10) } : item
       )
     );
+    calculateTotal(); // Update total after changing quantity.
   };
 
   const handleRemoveItem = (id) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    calculateTotal(); // Update total after removing item.
   };
 
   const handleSubmit = async (e) => {
@@ -60,7 +62,7 @@ const CartForm = () => {
   };
 
   const handleAddMoreItems = () => {
-    navigate('/shop');
+    navigate('/products');
   };
 
   return (
