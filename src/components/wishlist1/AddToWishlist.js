@@ -1,7 +1,7 @@
 const AddToWishlist = async (productId, token) => {
   try {
     console.log('Token:', token);
-    const response = await fetch('/api/wishlist', {
+    const response = await fetch('http://127.0.0.1:5555/api/wishlist', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
