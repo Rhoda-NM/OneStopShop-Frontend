@@ -1,31 +1,21 @@
+// ProductList.js
 import React from 'react';
-import ProductList from './ProductList';
+import ProductCard from './ProductCard'; // Ensure this path is correct
 
-const products = [
-  {
-    id: 1,
-    name: 'Product 1',
-    image_url: 'https://example.com/product1.jpg',
-    price: 19.99,
-    description: 'This is product 1',
-  },
-  {
-    id: 2,
-    name: 'Product 2',
-    image_url: 'https://example.com/product2.jpg',
-    price: 9.99,
-    description: 'This is product 2',
-  },
-  // Add more products to the array
-];
-
-const App = () => {
+const ProductList = ({ products }) => {
   return (
-    <div>
-      <h1>Product List</h1>
-      <ProductList products={products} />
+    <div className="product-list">
+      {products.map(product => (
+        <ProductCard
+          key={product.id}
+          name={product.name}
+          image_url={product.image_url}
+          price={product.price}
+          description={product.description}
+        />
+      ))}
     </div>
   );
 };
 
-export default App;
+export default ProductList;

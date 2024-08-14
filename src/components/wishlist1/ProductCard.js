@@ -5,9 +5,17 @@ const ProductCard = ({ product, token }) => {
   const [addedToWishlist, setAddedToWishlist] = useState(false);
 
   const handleAddToWishlist = async () => {
-    const success = await AddToWishlist(product.id, token);
-    if (success) {
-      setAddedToWishlist(true);
+    try {
+      const success = await AddToWishlist(product.id);
+      if (success) {
+        setAddedToWishlist(true);
+      } else {
+        // Optionally handle unsuccessful addition
+        alert('Failed to add to wishlist.');
+      }
+    } catch (error) {
+      console.error('Error adding to wishlist:', error);
+      alert('An error occurred while adding to wishlist.');
     }
   };
 
@@ -30,9 +38,6 @@ const ProductCard = ({ product, token }) => {
         <div className="description">
           <p>{product.description}</p>
         </div>
-        <button onClick={handleAddToWishlist}>
-          {addedToWishlist ? 'Added to Wishlist' : 'Add to Wishlist'}
-        </button>
       </div>
     </div>
   );
