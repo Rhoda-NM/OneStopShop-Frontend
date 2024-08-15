@@ -15,7 +15,7 @@
 }
 
 .contact-info h4 {
-  color: #ff4b5c; /* Match the icon color */
+  color: #ff4b5c; 
   margin-bottom: 15px;
   font-size: 18px;
 }
@@ -42,7 +42,7 @@
 }
 .contact-form form {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two columns layout */
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
@@ -54,14 +54,12 @@
   background-color: #f0f0f0;
 }
 
-/* Make the textarea span two columns */
 .contact-form textarea {
   grid-column: 1 / span 2;
   resize: none;
   height: 100px;
 }
 
-/* Button aligned to the right */
 .contact-form button {
   grid-column: 2 / span 1;
   padding: 12px 20px;
@@ -74,19 +72,19 @@
 }
 
 .contact-form button:hover {
-  background-color: #e8434e;
+  background-color: #74d419;
 }
 
 @media screen and (max-width: 768px) {
   .contact-form form {
-    grid-template-columns: 1fr; /* One column layout on smaller screens */
+    grid-template-columns: 1fr; 
   }
 
   .contact-form textarea {
-    grid-column: 1 / span 1; /* Full width textarea */
+    grid-column: 1 / span 1; 
   }
 
   .contact-form button {
-    grid-column: 1 / span 1; /* Full width button */
+    grid-column: 1 / span 1;
   }
 }
