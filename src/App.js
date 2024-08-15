@@ -17,7 +17,7 @@ import SellerDb from './pages/SellerDb';
 import UserProfile from './pages/UserProfile';
 import MyOrders from './components/Profile/orders';
 import ProfilePage from './components/Dashboard/MyProducts/Profile/ProfilePage';
-
+import Billing from './components/billing/Billings'
 const App = () => {
   return (
     <AuthProvider>
