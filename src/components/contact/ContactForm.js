@@ -57,53 +57,54 @@ const ContactForm = () => {
         </div>
       </div>
       <div className="contact-form">
-        <form onSubmit={handleSubmit}>
-          <div>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your Name *"
-              required
-            />
-          </div>
-          <div>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Your Email *"
-              required
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Your Phone Number *"
-              required
-            />
-          </div>
-          <div>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Your Message"
-              required
-            />
-          </div>
-          <button type="submit">Send Message</button>
-        </form>
-      </div>
+  <form onSubmit={handleSubmit}>
+    <div>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value={formData.name}
+        onChange={handleChange}
+        placeholder="Your Name *"
+        required
+      />
+    </div>
+    <div>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        placeholder="Your Email *"
+        required
+      />
+    </div>
+    <div>
+      <input
+        type="text"
+        id="phone"
+        name="phone"
+        value={formData.phone}
+        onChange={handleChange}
+        placeholder="Your Phone Number *"
+        required
+      />
+    </div>
+    <div>
+      <textarea
+        id="message"
+        name="message"
+        value={formData.message}
+        onChange={handleChange}
+        placeholder="Your Message"
+        required
+      />
+    </div>
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+
     </div>
     <Footer />
     </>
