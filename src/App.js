@@ -16,6 +16,7 @@ import SellerDb from './pages/SellerDb';
 import UserProfile from './pages/UserProfile';
 import MyOrders from './components/Profile/orders';
 import ProfilePage from './components/Dashboard/MyProducts/Profile/ProfilePage';
+import AccountManagement from './pages/AccountManagement';
 
 const App = () => {
   return (
@@ -32,7 +33,7 @@ const App = () => {
           <Route path="/contact" element={<ContactForm />} />
           <Route path="/sellerdash" element={<SellerDb />} />
           <Route path="/wishlist" element={<WishlistPage />} /> {/* Ensure this route is defined */}
-
+          <Route path="/account-management" element={<AccountManagement />} />
           
           {/* Routes for dashboard and user profile */}
           <Route path="/dashboard" element={<UserProfile />}>

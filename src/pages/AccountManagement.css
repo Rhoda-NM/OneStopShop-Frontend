@@ -1,0 +1,67 @@
+/* General styles for the page */
+.account-management {
+    padding: 20px;
+}
+
+.account-management-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Heading style */
+.account-management h1 {
+    font-size: 24px;
+    color: #363738;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+.account-management-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-management-form label {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.account-management-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #db4445;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #363738;
+}
+
+.account-management-input:focus {
+    border-color: #7D8184;
+    outline: none;
+}
+
+.update-button, .edit-button {
+    background-color: #db4445;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.update-button:hover, .edit-button:hover {
+    background-color: #c03e3b;
+}
+
+/* Text styles for displaying user data */
+.account-management p {
+    font-size: 16px;
+    color: #363738;
+    margin-bottom: 10px;
+}
