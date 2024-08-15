@@ -88,7 +88,7 @@ const LoginForm = () => {
       </form>
       <SignupPrompt>
         Don't have an account?
-        <SignupLink onClick={ () => navigate('/user/signup')}>
+        <SignupLink onClick={ () => navigate('/userrefresh_token/signup')}>
           Sign Up
           <UnderlineImg
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/84d9492dbb15ec3d9830565989c6169321d41dcbee9c2f22f81738a14f88cd6c?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884"

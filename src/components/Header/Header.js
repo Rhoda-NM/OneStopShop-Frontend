@@ -8,7 +8,6 @@ function Header (){
 const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleToggle = () => {
-    console.log('toggle')
     setIsMenuOpen(!isMenuOpen);
   };
     

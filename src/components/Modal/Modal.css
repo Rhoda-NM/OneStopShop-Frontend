@@ -56,3 +56,19 @@
     align-items: center;
     justify-content: center;
   }
+
+  .previous_page,
+  .next_page{
+    width: 50px;
+    height: 100%;
+
+  }
+  .page_button{
+    width: 50px;
+    height: 100px;
+  }
+  .page_button:hover{
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+    transform: translateX(5px); /* The card rises slightly */
+    transform: translateX(5px);
+  }

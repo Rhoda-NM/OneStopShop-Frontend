@@ -42,6 +42,7 @@ const validationSchema = Yup.object({
             //console.log('Form data', response.data);
             // Store the access token in local storage or a cookie
             localStorage.setItem('token', response.data.access_token);
+            localStorage.setItem('refresh_token', response.data.refresh_token);
             setShowModal(true); // Show modal on successful registration
         
             

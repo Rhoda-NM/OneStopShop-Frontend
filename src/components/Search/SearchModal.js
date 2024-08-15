@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import '../Modal/Modal.css';
 import Card from '../Card/Card.js';
+import next from '../Modal/right.svg'
+import previous from '../Modal/left.svg'
 
 function SearchModal({ isOpen, onClose, products, itemsPerPage = 4,HeaderJsx }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,7 +41,7 @@ function SearchModal({ isOpen, onClose, products, itemsPerPage = 4,HeaderJsx }) 
                 {HeaderJsx}
         <div className="Product_container">
               <div className="previous_page">
-                <i className="bi bi-arrow-left-square" onClick={goToPreviousPage} disabled={currentPage === 1}></i>
+              <img src={previous} className="page_button" onClick={goToPreviousPage} disabled={currentPage === 1}/>
               </div>
           <div className="product_list ">
           {currentProducts.map((product, index) => (
@@ -47,7 +49,7 @@ function SearchModal({ isOpen, onClose, products, itemsPerPage = 4,HeaderJsx }) 
           ))}
         </div>
               <div className="next_page">
-                <i className="bi bi-arrow-right-square" onClick={goToNextPage} disabled={currentPage === totalPages}></i>
+              <img src={next}  className="page_button" onClick={goToNextPage} disabled={currentPage === totalPages}/>
               </div>
         </div>
         </div>

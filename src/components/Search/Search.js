@@ -9,8 +9,13 @@ const Search = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetch_search_results = async (query) => {
+    const token = localStorage.getItem('token');
     try {
-      const res = await fetch(`/api/search_details?query=${query}`);
+      console.log('Fetching results',token)
+      const res = await fetch(`/api/search_details?query=${query}`,{
+        method: 'GET',
+        headers: { 'Authorization': `Bearer ${token}` },
+    })
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
