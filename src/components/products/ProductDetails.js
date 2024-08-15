@@ -11,6 +11,7 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  
 
   useEffect(() => {
     const fetchProduct = async () => {

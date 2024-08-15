@@ -1,50 +1,35 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import CartPage from './CartPage'
+import CartItem from './cartItem';
+import { fetchCartItems, calculateTotal, clearCart } from '../../stores/cart';
 
 const CartForm = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
 
-  const fetchCartItems = useCallback(async () => {
-    try {
-      const response = await fetch('/api/cart', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      const data = await response.json();
-      setCartItems(data.cart_items);
-      calculateTotal(data.cart_items);
-    } catch (error) {
-      console.error('Error fetching cart items:', error);
-    }
-  }, []); // Using an empty array if there are no dependencies to prevent re-creation.
-
-  useEffect(() => {
-    fetchCartItems();
-  }, [fetchCartItems]);
-
-  const calculateTotal = (items = cartItems) => {
-    const total = items.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
-    setTotalPrice(total);
-  };
-
   const handleQuantityChange = (id, quantity) => {
     if (quantity < 1) return;
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
+    setCartItems(prevItems =>
+      prevItems.map(item =>
         item.id === id ? { ...item, quantity: parseInt(quantity, 10) } : item
       )
     );
-    calculateTotal(); // Update total after changing quantity.
+    calculateTotal(cartItems, setTotalPrice);
   };
 
   const handleRemoveItem = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-    calculateTotal(); // Update total after removing item.
+    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+    calculateTotal(cartItems, setTotalPrice);
+  };
+
+  useEffect(() => {
+    fetchCartItems(setCartItems, setTotalPrice, calculateTotal);
+  }, []);
+
+  const handleClearCart = () => {
+    clearCart(setCartItems, setTotalPrice);
   };
 
   const handleSubmit = async (e) => {
@@ -57,50 +42,21 @@ const CartForm = () => {
     }
   };
 
-  const handleReturnToHome = () => {
-    navigate('/');
-  };
-
-  const handleAddMoreItems = () => {
-    navigate('/products');
-  };
-
   return (
     <div className="cart-container">
       <div className="cart-info">
-        <div className="cart-items">
-          {cartItems.length > 0 ? (
-            cartItems.map((item) => (
-              <div key={item.id} className="cart-item">
-                <i className="one-stop-shopping-cart"></i>
-                <div>
-                  <h4>{item.product.name}</h4>
-                  <p>Price: ${item.product.price.toFixed(2)}</p>
-                  <p>
-                    Quantity:
-                    <input
-                      type="number"
-                      value={item.quantity}
-                      onChange={(e) =>
-                        handleQuantityChange(item.id, e.target.value)
-                      }
-                      min="1"
-                    />
-                  </p>
-                  <p>Total: ${(item.product.price * item.quantity).toFixed(2)}</p>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveItem(item.id)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>Your cart is empty.</p>
-          )}
-        </div>
+        {cartItems.length > 0 ? (
+          cartItems.map(item => (
+            <CartItem
+              key={item.id}
+              item={item}
+              handleQuantityChange={handleQuantityChange}
+              handleRemoveItem={handleRemoveItem}
+            />
+          ))
+        ) : (
+          <p>Your cart is empty.</p>
+        )}
       </div>
       <div className="cart-form">
         <form onSubmit={handleSubmit}>
@@ -108,8 +64,9 @@ const CartForm = () => {
             <h2>Grand Total: ${totalPrice.toFixed(2)}</h2>
           </div>
           <div className="cart-buttons">
-            <button type="button" onClick={handleReturnToHome}>Return to Homepage</button>
-            <button type="button" onClick={handleAddMoreItems}>Add More Items</button>
+            <button type="button" onClick={() => navigate('/')}>Return to Homepage</button>
+            <button type="button" onClick={() => navigate('/products')}>Add More Items</button>
+            <button type="button" onClick={handleClearCart}>Clear Cart</button>
             <button type="submit">Proceed to Checkout</button>
           </div>
         </form>
