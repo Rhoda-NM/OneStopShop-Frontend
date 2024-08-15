@@ -1,94 +1,157 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../components/Header/Header';
-import Footer from '../components/Footer/Footer';
-import '../components/products/ProductDetails.css';
-import { addToCart } from '../stores/cart';
-import { addToCartAsync } from '../stores/cart';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+import Card from '../Card/Card';
+import './ProductDetails.css';
 
+// Updated ProductDetails component
 const ProductDetails = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [product, setProduct] = useState(null);
-    const [error, setError] = useState(null);
-    const [quantity, setQuantity] = useState(1);
-    const dispatch = useDispatch();
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [error, setError] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [relatedItems, setRelatedItems] = useState([]);
+  const [message, setMessage] = useState('');
 
-    useEffect(() => {    
-        fetchProduct();
-    }, [id]);
-
+  useEffect(() => {
     const fetchProduct = async () => {
-        try {
-            const response = await axios.get(`/api/products/${id}`);
-            setProduct(response.data);
-        } catch (err) {
-            setError(err);
+      try {
+        const response = await axios.get(`https://dummyjson.com/products/${id}`);
+        setProduct(response.data);
+
+        // Fetch related items based on category
+        const categoryResponse = await axios.get(`https://dummyjson.com/products?category=${response.data.category}`);
+        
+        // Filter out the current product and limit the number of related items
+        const filteredItems = categoryResponse.data.products
+          .filter(p => p.id !== id)
+          .slice(0, 4); // Limit to 4 related items
+        
+        setRelatedItems(filteredItems);
+      } catch (err) {
+        setError(err);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
+
+  const handleAddToWishlist = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.post(
+        'http://127.0.0.1:5555/api/wishlist',
+        { product_id: id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-    };
-    
-    if (error) return <p>Error loading product: {error.message}</p>;
-    if (!product) return <p>Loading...</p>;
+      );
+      setMessage('Item added to wishlist!');
+    } catch (error) {
+      setMessage('Failed to add item to wishlist.');
+    }
+  };
 
-    const handleMinusQuantity = () => {
-        setQuantity(quantity > 1 ? quantity - 1 : 1);
-    };
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    // Handle review submission logic here
+  };
 
-    const handlePlusQuantity = () => {
-        setQuantity(quantity + 1);
-    };
+  if (error) return <p>Error loading product: {error.message}</p>;
+  if (!product) return <p>Loading...</p>;
 
-    const handleAddToCart = () => {
-        if (!localStorage.getItem('token')) {
-            navigate('/login');
-        } else {
-            const orderItems = [{
-                productId: product.id,
-                quantity: quantity,
-            }];
-            dispatch(addToCartAsync(orderItems));
-            dispatch(addToCart({
-                productId: product.id,
-                quantity: quantity
-            }));
-        }
-    };
-
-    return (
-        <>
-            <Header />
-            <div className="product-details-page">
-                <div className="breadcrumb">
-                    <a href="/">Account</a> / <a href="/">Gaming</a> / {product.name}
-                </div>
-                <div className="product-details-container">
-                    <div className="product-image">
-                        <img src={product.image_url} alt={product.name} />
-                    </div>
-                    <div className="product-info">
-                        <h1 className="product-title">{product.name}</h1>
-                        <div className="product-rating">
-                            <span className="stars">★★★★☆</span>
-                            <span className="reviews">({product.reviews_count} Reviews)</span>
-                            <span className="stock-status">{product.stock_status ? 'In Stock' : 'Out of Stock'}</span>
-                        </div>
-                        <p className="product-price">${product.price}</p>
-                        <p className="product-description">{product.description}</p>
-                        <div className="quantity-control">
-                            <button onClick={handleMinusQuantity} className="quantity-btn">-</button>
-                            <input type="text" value={quantity} readOnly className="quantity-input" />
-                            <button onClick={handlePlusQuantity} className="quantity-btn">+</button>
-                        </div>
-                        <button onClick={handleAddToCart} className="buy-now-btn">Add to Cart</button>
-                        <button className="buy-now-btn">Add to Wishlist</button>
-                    </div>
-                </div>
+  return (
+    <>
+      <Header />
+      <div className="product-details-page">
+        <div className="breadcrumb">
+          <a href="/">Home</a> / <a href={`/category/${product.category}`}>{product.category}</a> / {product.title}
+        </div>
+        <div className="product-details-container">
+          <div className="product-image">
+            <img src={product.images[0]} alt={product.title} />
+          </div>
+          <div className="product-info">
+            <h1 className="product-title">{product.title}</h1>
+            <div className="product-rating">
+              <span className="stars">★★★★☆</span>
+              <span className="reviews">({product.reviews.length} Reviews)</span>
+              <span className="stock-status">{product.availabilityStatus}</span>
             </div>
-            <Footer />
-        </>
-    );
+            <p className="product-price">${product.price}</p>
+            <p className="product-description">
+              {product.description}
+            </p>
+            <div className="quantity-control">
+              <button className="quantity-btn" onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
+              <input type="text" value={quantity} readOnly className="quantity-input" />
+              <button className="quantity-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
+            </div>
+            <button className="buy-now-btn">Buy Now</button>
+            <button className="wishlist-btn" onClick={handleAddToWishlist}>Add to Wishlist</button>
+            {message && <p className="wishlist-message">{message}</p>}
+          </div>
+        </div>
+
+        <div className="related-items">
+          <h2>Related Items</h2>
+          <div className="related-items-container">
+            {relatedItems.map(item => (
+              <Card 
+                key={item.id}
+                productName={item.title}
+                image_url={item.images[0]}
+                price={item.price}
+                id={item.id}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="product-reviews-section">
+          <div className="product-reviews">
+            <h2>Customer Reviews</h2>
+            {product.reviews.length > 0 ? (
+              product.reviews.map(review => (
+                <div key={review.id} className="review">
+                  <p><strong>{review.username}</strong> - {review.rating} ★</p>
+                  <p>{review.comment}</p>
+                </div>
+              ))
+            ) : (
+              <p>No reviews yet.</p>
+            )}
+          </div>
+
+          <div className="review-form">
+            <h2>Add Your Review</h2>
+            <form onSubmit={handleReviewSubmit}>
+              <div className="form-group">
+                <label htmlFor="rating">Rating:</label>
+                <select id="rating" name="rating">
+                  <option value="5">5 ★</option>
+                  <option value="4">4 ★</option>
+                  <option value="3">3 ★</option>
+                  <option value="2">2 ★</option>
+                  <option value="1">1 ★</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="comment">Comment:</label>
+                <textarea id="comment" name="comment" rows="4" required></textarea>
+              </div>
+              <button type="submit" className="submit-review-btn">Submit Review</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
 };
 
 export default ProductDetails;
