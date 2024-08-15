@@ -53,7 +53,7 @@ function Header() {
               <li className="nav_item">
                 <Link to="/user/signup" className="nav_link">
                   <i className="bi bi-person-fill-add"></i>
-                  <span>Sign Up</span>
+                  <span>Sign Up/Login</span>
                 </Link>
               </li>
             )}

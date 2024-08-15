@@ -28,7 +28,7 @@ const WishlistPage = () => {
 
       if (res.ok) {
         const data = await res.json();
-        localStorage.setItem('access_token', data.access_token);
+        localStorage.setItem('token', data.access_token);
         return data.access_token;
       } else {
         console.error('Failed to refresh token');
@@ -92,8 +92,7 @@ const WishlistPage = () => {
 
   return (
     <div>
-      <Header />
-      <h1>Your Wishlist</h1>
+            <h1>Your Wishlist</h1>
       {wishlist.length > 0 ? (
         <div className="product-list">
           {wishlist.map(product => (
