@@ -1,126 +1,125 @@
 .billing-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-  }
-  
-  .billing-details {
-    flex: 1;
-    margin-right: 20px;
-  }
-  
-  .billing-details h2 {
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin-top: 95px;
+}
 
-  .form-group:hover,
-  .form-group:hover {
-    color: #008000;    
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input[type="text"],
-  .form-group input[type="tel"],
-  .form-group input[type="email"] {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-  }
-  
-  .form-group input[type="checkbox"] {
-    margin-right: 10px;
-  }
-  
-  .order-summary {
-    flex: 1;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #857e7e;
-  }
-  
-  .product-summary {
-    margin-bottom: 20px;
-  }
-  
-  .product-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .product-item img {
-    max-width: 50px;
-    margin-right: 10px;
-  }
-  
-  .pricing-summary {
-    margin-bottom: 20px;
-  }
-  
-  .pricing-summary .subtotal,
-  .pricing-summary .shipping,
-  .pricing-summary .total {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .payment-methods {
-    margin-bottom: 20px;
-  }
-  
-  .payment-methods .form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  .payment-icons {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .payment-icons img,
-  .payment-icons .svg-inline--fa {
-    max-width: 30px;
-    max-height: 30px;
-  }
-  
-  
-  .coupon {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .coupon input[type="text"] {
-    flex: 1;
-    padding: 8px;
-    margin-right: 10px;
-  }
-  
-  button[type="button"],
-  button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #ff4b5c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button[type="button"]:hover,
-  button[type="submit"]:hover {
-    background-color: #ebeeeb;
-    color: #ff4b5c;
-  }
-  
+.billing-details {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.billing-details h2 {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group:hover,
+.form-group:hover {
+  color: #008000;    
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group input[type="email"] {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.form-group input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.order-summary {
+  flex: 1;
+  padding: 20px;
+}
+
+.product-summary {
+  margin-bottom: 20px;
+}
+
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.product-item img {
+  max-width: 50px;
+  margin-right: 10px;
+}
+
+.pricing-summary {
+  margin-bottom: 20px;
+}
+
+.pricing-summary .subtotal,
+.pricing-summary .shipping,
+.pricing-summary .total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.payment-methods {
+  margin-bottom: 20px;
+}
+
+.payment-methods .form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.payment-icons {
+  display: flex;
+  gap: 2px;
+}
+
+.payment-icons img,
+.payment-icons .svg-inline--fa {
+  max-width: 30px;
+  margin-left: 150px;
+  max-height: 30px;
+}
+
+
+.coupon {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.coupon input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  margin-right: 10px;
+}
+
+button[type="button"],
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff4b5c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="button"]:hover,
+button[type="submit"]:hover {
+  background-color: #ebeeeb;
+  color: #ff4b5c;
+}
