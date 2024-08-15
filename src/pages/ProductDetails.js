@@ -23,8 +23,12 @@ const ProductDetails = () => {
 
     const fetchProductDetails = async () => {
         try {
-            const response = await axios.get(`/api/products/${id}`);
-            setProduct(response.data);
+            const response = await fetch(`/api/products/${id}`);
+            if(!response.ok){
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            setProduct(data);
         } catch (err) {
             setError(err);
         }
@@ -76,7 +80,7 @@ const ProductDetails = () => {
                         <ProductTitle>{product.name}</ProductTitle>
                         <ProductRating>
                             <span className="stars">★★★★☆</span>
-                            <span className="reviews">({product.ratings.length} Reviews)</span>
+                            <span className="reviews">({product.ratings} Reviews)</span>
                             <span className="stock-status">{product.stock > 0 ? "In Stock" : "Out of Stock"}</span>
                         </ProductRating>
                         <ProductPrice>
@@ -106,7 +110,7 @@ const ProductDetails = () => {
                 </ProductDetailsContainer>
                 <ProductReviews>
                     <h2>Customer Reviews</h2>
-                    {product.ratings.length > 0 ? (
+                    {product.ratings > 0 ? (
                         product.ratings.map(review => (
                             <div key={review.id} className="review">
                                 <p><strong>{review.username}</strong> - {review.rating} ★</p>
