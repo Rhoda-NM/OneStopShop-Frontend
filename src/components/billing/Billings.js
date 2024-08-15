@@ -2,7 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcVisa, faCcMastercard, faCcAmex } from '@fortawesome/free-brands-svg-icons';
 import './Billings.css';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
+  // Fetch product details from the backend
+  const fetchProductDetails = async (id) => {
+    try {
+      const response = await fetch(`/api/products/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data= await response.json();
+        return data;
+      } else {
+        console.error('Error fetching product details');
+      }
+    } catch (error) {
+      console.error('Error fetching product details:', error);
+    }
+  };
 function Billings() {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -16,14 +38,16 @@ function Billings() {
     couponCode: ''
   });
 
+
   const [orderItems, setOrderItems] = useState([]);
   const [total, setTotal] = useState(0);
+  const [productImages, setProductImages] = useState({}); // store product images in state
 
   useEffect(() => {
     // Fetch order data from the backend
     const fetchOrderData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/cart', {
+        const response = await fetch('/api/cart', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -33,11 +57,16 @@ function Billings() {
 
         if (response.ok) {
           const data = await response.json();
+          console.log(data);
           setOrderItems(data.order_items);
 
           // Calculate total price
           const totalPrice = data.order_items.reduce((acc, item) => acc + item.price * item.quantity, 0);
           setTotal(totalPrice);
+
+          const productImagePromises = data.order_items.map(item => fetchProductDetails(item.product_id));
+          const productImages = await Promise.all(productImagePromises);
+          setProductImages(productImages.reduce((acc, image, index) => ({ ...acc, [index]: image.image_url }), {}));
         } else {
           console.error('Error fetching order data');
         }
@@ -60,7 +89,7 @@ function Billings() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/api/checkout', {
+      const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,6 +110,8 @@ function Billings() {
   };
 
   return (
+    <>
+    <Header />
     <div className="billing-container">
       <div className="billing-details">
         <h2>Billing Details</h2>
@@ -174,14 +205,14 @@ function Billings() {
       </div>
       <div className="order-summary">
         <div className="product-summary">
-          {orderItems.map(item => (
-            <div className="product-item" key={item.product_id}>
-              <img src={item.product_image} alt={item.product_name} />
-              <span>{item.product_name}</span>
-              <span>${item.price}</span>
-              <span>Quantity: {item.quantity}</span>
-            </div>
-          ))}
+        {orderItems.map((item, index) => (
+              <div className="product-item" key={item.product_id}>
+                <img src={productImages[index]} alt={item.product_name} />
+                <span>{item.product_name}</span>
+                <span>${item.price}</span>
+                <span>Quantity: {item.quantity}</span>
+              </div>
+            ))}
         </div>
         <div className="pricing-summary">
           <div className="subtotal">
@@ -239,6 +270,8 @@ function Billings() {
         <button type="submit" onClick={handleSubmit}>Place Order</button>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }
 
