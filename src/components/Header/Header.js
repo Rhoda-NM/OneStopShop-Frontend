@@ -78,7 +78,7 @@ function Header() {
                 <Link to="/wishlist" className="mini_menu_link">
                   <i className="ri-heart-line"></i> Wishlist
                 </Link>
-                <Link to="/account" className="mini_menu_link">
+                <Link to="/dashboard" className="mini_menu_link">
                   <i className="ri-user-line"></i> Account
                 </Link>
                 <button className="mini_menu_link" onClick={handleLogout}>

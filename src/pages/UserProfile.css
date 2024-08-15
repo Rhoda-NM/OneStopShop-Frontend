@@ -1,0 +1,61 @@
+/* Ensure the container takes up the full height of the viewport */
+.user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    min-height: 100vh; /* Full viewport height */
+    padding: 40px;
+    background-color: #f0f0f0; /* Optional: Background color */
+}
+
+/* Style the profile content */
+.user-profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px; /* Max width for the content */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for better visibility */
+    background-color: #fff; /* White background for the form container */
+    border-radius: 8px; /* Rounded corners */
+}
+
+/* Style form labels and inputs */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.user-profile-input {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; /* Full width of the container */
+}
+
+/* Style the buttons */
+.update-button,
+.edit-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.update-button:hover,
+.edit-button:hover {
+    background-color: #0056b3;
+}
