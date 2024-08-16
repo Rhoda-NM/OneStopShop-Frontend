@@ -18,6 +18,7 @@ import UserProfile from './pages/UserProfile';
 import MyOrders from './components/Profile/orders';
 import ProfilePage from './components/Dashboard/MyProducts/Profile/ProfilePage';
 import Billing from './components/billing/Billings'
+import CartPage from './components/CartPage/CartPage';
 const App = () => {
   return (
     <AuthProvider>
@@ -31,6 +32,7 @@ const App = () => {
             <Route exact path='/about' element={<About />}/>
             <Route exact path='/addproduct' element={<AddProduct />}/>
             <Route exact path='/contact' element={<ContactForm />}/>
+            <Route exact path='/cart_page' element={<CartPage />}/>
             <Route exact path='/sellerdash' element={<SellerDb />} />
             <Route exact path="dashboard/*" element={<UserProfile />} >
               <Route exact path='wishlist' element={<Wishlist />} />

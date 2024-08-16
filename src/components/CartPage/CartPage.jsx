@@ -3,20 +3,18 @@
  */
 import React from "react";
 import styled from "styled-components";
-import TopHeader from "./TopHeader";
-import Navigation from "./Navigation";
 import CartItems from "./CartItems";
-import CartSummary from "./CartSummary";
 import Footer from "./Footer";
+import Header from "../Header/Header";
 
 const CartPage = () => {
+    
+
   return (
     <StyledCartPage>
-      <TopHeader />
+      <Header />
       <main className="cart-main">
-        <Navigation />
         <CartItems />
-        <CartSummary />
       </main>
       <Footer />
     </StyledCartPage>

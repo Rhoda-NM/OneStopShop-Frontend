@@ -4,7 +4,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const CartSummary = () => {
+const CartSummary = ({ totalPrice }) => {
   return (
     <StyledCartSummary>
       <form className="coupon-form">
@@ -19,7 +19,7 @@ const CartSummary = () => {
         <h2>Cart Total</h2>
         <div className="summary-row">
           <span>Subtotal:</span>
-          <span>$1750</span>
+          <span>${totalPrice}</span>
         </div>
         <div className="summary-row">
           <span>Shipping:</span>
@@ -27,7 +27,7 @@ const CartSummary = () => {
         </div>
         <div className="summary-row total">
           <span>Total:</span>
-          <span>$1750</span>
+          <span>${totalPrice}</span>
         </div>
         <button className="checkout-btn">Proceed to checkout</button>
       </div>

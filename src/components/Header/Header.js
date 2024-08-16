@@ -51,7 +51,7 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
             <div className={`Search_area ${isMenuOpen ?'show-form':'' }`} id="Search-area">
                     <Search />
                 <div className="shop_icons">
-                    <Link to="/cart" className="shop_icons_link"><i className="ri-shopping-cart-line navbar_icons"></i></Link>
+                    <Link to="/cart_page" className="shop_icons_link"><i className="ri-shopping-cart-line navbar_icons"></i></Link>
                     <Link to="/wishlist" className="shop_icons_link"><i className="ri-heart-line navbar_icons"></i></Link>
                 </div>
             </div>

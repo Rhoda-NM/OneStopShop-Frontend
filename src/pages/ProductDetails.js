@@ -29,6 +29,7 @@ const ProductDetails = () => {
             }
             const data = await response.json();
             setProduct(data);
+            console.log(data);
         } catch (err) {
             setError(err);
         }
@@ -45,16 +46,16 @@ const ProductDetails = () => {
     }
     const handleAddToCart = () => {
         if (!localStorage.getItem('token')){
-            navigate('/login');
+            navigate('/user/login');
         } else {
             const orderItems = [{
-                productId: product.id,
+                product_id: product.id,
                 quantity: quantity,
             }];
 
             dispatch(addToCartAsync(orderItems));
             dispatch(addToCart({
-                productId: product.id,
+                product_id: product.id,
                 quantity: quantity
             }));
         }

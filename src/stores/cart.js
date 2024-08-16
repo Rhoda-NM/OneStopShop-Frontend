@@ -3,12 +3,21 @@ import axios from "axios";
 
 // Initial state
 const initialState = {
-    items: localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts")) : [],
+    items: [],
     statusTab: false,
     status: 'idle',
     error: null,
 };
 
+// Safely parse JSON from localStorage
+try {
+    const savedCarts = localStorage.getItem("carts");
+    if (savedCarts) {
+        initialState.items = JSON.parse(savedCarts);
+    }
+} catch (e) {
+    console.error("Error parsing carts from localStorage:", e);
+}
 // Async thunk for adding items to cart
 export const addToCartAsync = createAsyncThunk(
     'cart/addToCartAsync',
