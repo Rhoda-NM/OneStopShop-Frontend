@@ -52,7 +52,7 @@ const Sidebar = () => {
       {/* logo */}
         <div className="logo">
             <span>
-                <span>O</span>ne St<span>o</span>p Sh<span>o</span>ps
+                Manage My Account
             </span>
         </div>
         <div className="menu">

@@ -39,15 +39,14 @@ const LoginForm = () => {
   });
   const handleClose = () => {
     setShowModal(false);
-    navigate('/'); 
+    navigate('/')
+  
   };
 
   return (
     <>
     <FormContainer>
-      <Header>
-        <Title>Welcome Back!</Title>
-      </Header>
+     
       <Subtitle>Enter your details below</Subtitle>
       <form onSubmit={formik.handleSubmit}>
         <FormFields>
@@ -104,7 +103,7 @@ const LoginForm = () => {
                     <ModalTitle>Welcome</ModalTitle>
                     <CloseButton onClick={handleClose}>X</CloseButton>
                 </ModalHeader>
-                <ModalBody>Account created successfully</ModalBody>
+                <ModalBody>Login Successful</ModalBody>
                 <ModalFooter>
                     <CloseButton onClick={handleClose}>Close</CloseButton>
                 </ModalFooter>
@@ -125,7 +124,7 @@ const FormContainer = styled.div`
 `;
 
 const Header = styled.header`
-  width: 100%;
+  width: 50%;
 `;
 
 const Title = styled.h1`

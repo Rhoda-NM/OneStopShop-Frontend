@@ -7,7 +7,7 @@ import {
     UilChart,
     UilEditAlt,
     UilPanelAdd,
-    UilMap,
+    UilShoppingCart,
     UilTransaction,
     UilBuilding,
     UilHeartAlt,
@@ -31,21 +31,18 @@ import {
       icon: UilEstate,
       heading: "Dashboard",
     },
-    {
-      icon: UilClipboardAlt,
-      heading: "Orders",
-    },
+
     {
       icon: UilUsersAlt,
       heading: "Profile",
     },
     {
       icon: UilPackage,
-      heading: 'Products'
+      heading: 'MyProducts'
     },
     {
       icon: UilPanelAdd,
-      heading: 'Add Product'
+      heading: 'AddProduct'
     },
   ];
 
@@ -54,21 +51,10 @@ import {
       icon: UilEstate,
       heading: "Dashboard",
     },
+    
     {
-      icon: UilUsersAlt,
-      heading: "Profile",
-    },
-    {
-      icon: UilEditAlt,
-      heading: "Edit Profile"
-    },
-    {
-      icon: UilCreditCardSearch,
-      heading: "PaymentDetails"
-    },
-    {
-      icon: UilBuilding,
-      heading: "Address",
+      icon: UilShoppingCart,
+      heading: "My Cart"
     },
     {
       icon: UilHeartAlt,
@@ -78,6 +64,8 @@ import {
       icon: UilTransaction,
       heading: "Orders"
     }
+    
+    
   ]
   
   // Analytics Cards Data

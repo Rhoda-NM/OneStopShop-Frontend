@@ -1,0 +1,42 @@
+/* Related Items */
+.related-items {
+    margin-top: 40px;
+}
+
+.related-items h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.related-items-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.related-item {
+    flex: 1;
+    min-width: 200px; 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.related-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Product Reviews Section */
+.product-reviews-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 40px;
+    gap: 20px;
+}
+

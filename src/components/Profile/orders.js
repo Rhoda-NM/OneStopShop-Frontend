@@ -36,12 +36,12 @@ const MyOrders = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-        axios.get('/api/wishlist', {
+        axios.get('/api/orders', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         })
-        .then(response => console.log(response.data))
+        .then(response => setOrders(response.data))
         .catch(error => console.error('Error:', error));
         };
 

@@ -25,6 +25,7 @@
     align-items: center;
     justify-content: center;
     font-family: 'Inter', sans-serif;
+    margin: 50px 20px;
   }
   
   .AppGlass {
@@ -35,7 +36,10 @@
     border-radius: 2rem;
     gap: 16px;
     grid-template-columns: 20rem auto;
-    overflow: hidden;
+  }
+  main{
+    margin: 60px 20px 30px 20px;
+    overflow: scroll;
   }
   
   @media screen and (max-width: 1200px) {

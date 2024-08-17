@@ -47,6 +47,7 @@ const productsData = [
 
 const JustForYouSection = () => {
   const [recommendedProducts, setRecommendedProducts] = useState([]);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     fetchRecommendations();
@@ -54,10 +55,14 @@ const JustForYouSection = () => {
 
   const fetchRecommendations = async () => {
     try {
-      const response = await axios.get('/wishlist/recommendations');
+      const response = await axios.get('/api/wishlist/recommendations', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setRecommendedProducts(response.data);
     } catch (error) {
-      console.error('Error fetching recommendations:', error);
+      console.error('Error fetching wishlist:', error);
     }
   };
 

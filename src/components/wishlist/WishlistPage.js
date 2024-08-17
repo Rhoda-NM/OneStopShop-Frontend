@@ -17,6 +17,14 @@ const WishlistPage = () => {
   );
 };
 
+export const Wishlist = () => {
+  return (
+    <Main>
+      <WishlistItems />
+    </Main>
+  )
+}
+
 const StyledWishlistPage = styled.div`
   background-color: #fff;
   display: flex;

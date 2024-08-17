@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const ProductCard = ({
   name,
-  image,
+  image_url,
   price,
   originalPrice,
   discount,
@@ -16,7 +16,7 @@ const ProductCard = ({
       <ImageContainer>
         {discount && <DiscountTag>-{discount}%</DiscountTag>}
         {isNew && <NewTag>NEW</NewTag>}
-        <ProductImage src={image} alt={name} />
+        <ProductImage src={image_url} alt={name} />
         <WishlistIcon
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/92f95af307a693492ef165c4482565d88008392560df9e3855fc15ed6903d028?apiKey=198507df3fb1499aa3645c6bf5866884&&apiKey=198507df3fb1499aa3645c6bf5866884"
           alt="Add to wishlist"

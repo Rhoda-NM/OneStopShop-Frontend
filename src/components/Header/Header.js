@@ -1,14 +1,19 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthProvider.js";
 import { Link } from "react-router-dom";
 import './header.css';
 import Image from '../assets/onestoplogo-_1_.svg'
 import Search from '../Search/Search.js';
 
-function Header (){
-const [isMenuOpen, setIsMenuOpen] = useState(false);
+function Header() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulate logged-in status
+  const [isMiniMenuOpen, setIsMiniMenuOpen] = useState(false);
 
   const handleToggle = () => {
-    console.log('toggle')
     setIsMenuOpen(!isMenuOpen);
   };
     
@@ -59,12 +64,12 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
                 </div>
             </div>
 
-            <div className={`toggle_btn ${isMenuOpen ?'active':'' }`} id="toggle-btn" onClick={handleToggle}>
-                <i className="ri-menu-line"></i>
-            </div>
-        </nav>
+        <div className={`toggle_btn ${isMenuOpen ? 'active' : ''}`} id="toggle-btn" onClick={handleToggle}>
+          <i className="ri-menu-line"></i>
+        </div>
+      </nav>
     </header>
-)
+  );
 }
 
 export default Header;

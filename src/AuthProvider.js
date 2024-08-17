@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
       //console.log(data.access_token);
       localStorage.setItem('token', data.access_token);
       setUser(data.user);
-      navigate('/');
+      
     } else {
       console.error('Login failed');
     }

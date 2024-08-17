@@ -303,4 +303,3 @@ const StyledCartItems = styled.section`
 `;
 
 export default CartItems;
-

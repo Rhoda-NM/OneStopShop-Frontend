@@ -87,12 +87,10 @@ function Card({ productName, image_url, price, id, addToWishlist }) {
             return;
         }
 
-        const added = await AddToWishlist(id, token);
-        if (added) {
-            alert('Added to wishlist successfully!');
-        } else {
-            alert('Failed to add to wishlist.');
-        }
+        await AddToWishlist(id, token);
+        alert('Added to wishlist successfully!');
+       
+        
         
     };
     useEffect(() => {
@@ -107,7 +105,7 @@ function Card({ productName, image_url, price, id, addToWishlist }) {
     }
 
     return (
-        <div className="card">
+        <div className="card" onClick={() => navigate(`/products/${id}`)}>
             <div className="Image_container">
                 <div className="img">
                     <img src={image_url} alt="item_to_sell" />

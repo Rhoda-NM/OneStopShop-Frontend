@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import { addToCart } from '../../stores/cart';
+import { addToCartAsync } from '../../stores/cart';
+import Card from '../Card/Card';
 import Card from '../Card/Card';
 import './ProductDetails.css';
 
@@ -33,33 +37,64 @@ const ProductDetails = () => {
       }
     };
 
-    fetchProduct();
-  }, [id]);
+    const fetchRelatedProducts = async () => {
+        try {
+            const response = await axios.get(`/api/products/${id}/related`);
+            setRelatedProducts(response.data);
+        } catch (err) {
+            console.error('Failed to fetch related products:', err);
+        }
+    };
 
-  if (error) return <p>Error loading product: {error.message}</p>;
-  if (!product) return <p>Loading...</p>;
+    if (error) return <p>Error loading product: {error.message}</p>;
+    if (!product) return <p>Loading...</p>;
+
+    const handleMinusQuantity = () => {
+        setQuantity(quantity - 1 < 1 ? 1 : quantity - 1);
+    };
+
+    const handlePlusQuantity = () => {
+        setQuantity(quantity + 1);
+    };
+
+    const handleAddToCart = () => {
+        if (!localStorage.getItem('token')) {
+            navigate('/login');
+        } else {
+            const orderItems = [{
+                productId: product.id,
+                quantity: quantity,
+            }];
+
+            dispatch(addToCartAsync(orderItems));
+            dispatch(addToCart({
+                productId: product.id,
+                quantity: quantity,
+            }));
+        }
+    };
 
   return (
     <>
       <Header />
       <div className="product-details-page">
         <div className="breadcrumb">
-          <a href="/">Home</a> / <a href={`/category/${product.category}`}>{product.category}</a> / {product.title}
+          <a href="/">Account</a> / <a href="/">Gaming</a> / Havic HV G-92 Gamepad
         </div>
         <div className="product-details-container">
           <div className="product-image">
-            <img src={product.images[0]} alt={product.title} />
+            <img src={Image} alt="Havic HV G-92 Gamepad" />
           </div>
           <div className="product-info">
-            <h1 className="product-title">{product.title}</h1>
+            <h1 className="product-title">Havic HV G-92 Gamepad</h1>
             <div className="product-rating">
               <span className="stars">★★★★☆</span>
-              <span className="reviews">({product.reviews.length} Reviews)</span>
-              <span className="stock-status">{product.availabilityStatus}</span>
+              <span className="reviews">(50 Reviews)</span>
+              <span className="stock-status">In Stock</span>
             </div>
-            <p className="product-price">${product.price}</p>
+            <p className="product-price">$192.00</p>
             <p className="product-description">
-              {product.description}
+              PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble-free install & mess-free removal Pressure sensitive.
             </p>
             <div className="quantity-control">
               <button className="quantity-btn" onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
@@ -67,35 +102,7 @@ const ProductDetails = () => {
               <button className="quantity-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
             </div>
             <button className="buy-now-btn">Buy Now</button>
-            <button className="wishlist-btn">Add to Wishlist</button> {/* Add to Wishlist button */}
           </div>
-        </div>
-        <div className="related-items">
-          <h2>Related Items</h2>
-          <div className="related-items-container">
-            {relatedItems.map(item => (
-              <Card 
-                key={item.id}
-                productName={item.title}
-                image_url={item.images[0]}
-                price={item.price}
-                id={item.id}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="product-reviews">
-          <h2>Customer Reviews</h2>
-          {product.reviews.length > 0 ? (
-            product.reviews.map(review => (
-              <div key={review.id} className="review">
-                <p><strong>{review.username}</strong> - {review.rating} ★</p>
-                <p>{review.comment}</p>
-              </div>
-            ))
-          ) : (
-            <p>No reviews yet.</p>
-          )}
         </div>
       </div>
       <Footer />
@@ -104,3 +111,6 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+
+
+

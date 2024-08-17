@@ -1,34 +1,53 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../AuthProvider';
 import { useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
+import AddToWishlist from '../components/wishlist/AddWishlist';
 import axios from 'axios';
 import styled from 'styled-components';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import { addToCart } from '../stores/cart';
 import { addToCartAsync } from '../stores/cart';
+import Card from '../components/Card/Card';
+import './ProductDetail.css';
 
 
 const ProductDetails = () => {
+    const user = useNavigate();
     const { id } = useParams();
     const navigate = useNavigate();
+    const token = localStorage.getItem('token')
     const [product, setProduct] = useState(null);
     const [error, setError] = useState(null);
     const [quantity, setQuantity] = useState(1);
+    const [relatedItems, setRelatedItems] = useState([]);
     const dispatch = useDispatch();
+    const [showModal, setShowModal] = useState(false);
+    const handleClose = () => {
+      setShowModal(false);
+    
+    };
+
 
     useEffect(() => {
-        fetchProductDetails();
-    }, [id]);
+      const fetchProduct = async () => {
+          try {
+            const response = await fetch(`/api/products/${id}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            setProduct(data);
 
-    const fetchProductDetails = async () => {
-        try {
-            const response = await axios.get(`/api/products/${id}`);
-            setProduct(response.data);
-        } catch (err) {
-            setError(err);
-        }
-    };
+  
+          } catch (err) {
+              setError(err);
+          }
+      };
+      fetchProduct();
+  }, [id]);
+    
 
     if (error) return <p>Error loading product: {error.message}</p>;
     if (!product) return <p>Loading...</p>;
@@ -39,21 +58,41 @@ const ProductDetails = () => {
     const handlePlusQuantity = () => {
         setQuantity(quantity + 1);
     }
-    const handleAddToCart = () => {
-        if (!localStorage.getItem('token')){
-            navigate('/login');
-        } else {
-            const orderItems = [{
-                productId: product.id,
-                quantity: quantity,
-            }];
+    
+    const handleAddToCart = async () => {
+      try {
+        const response = await axios.post('/api/cart', {
+          order_items: [
+            {
+              product_id: product.id,
+              quantity: quantity,
+            }
+          ]
+        }, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+  
+    if (response.status === 201) {
+      setShowModal(true)
+    } else {
+      alert('Failed to add item to cart.');
+    }
+  } catch (err) {
+    console.error('Error adding item to cart:', err);
+    alert('There was an error adding the item to the cart.');
+  }
+    };
 
-            dispatch(addToCartAsync(orderItems));
-            dispatch(addToCart({
-                productId: product.id,
-                quantity: quantity
-            }));
-        }
+    const handleAddToWishlist = async () => {
+      if (!user) {
+          navigate('/user/login');
+          return;
+      }
+
+      await AddToWishlist(id, token);
+      setShowModal(true)
     }
 
     return (
@@ -76,7 +115,7 @@ const ProductDetails = () => {
                         <ProductTitle>{product.name}</ProductTitle>
                         <ProductRating>
                             <span className="stars">★★★★☆</span>
-                            <span className="reviews">({product.ratings.length} Reviews)</span>
+                            
                             <span className="stock-status">{product.stock > 0 ? "In Stock" : "Out of Stock"}</span>
                         </ProductRating>
                         <ProductPrice>
@@ -101,13 +140,27 @@ const ProductDetails = () => {
                             <button onClick={handlePlusQuantity} className="quantity-btn">+</button>
                         </QuantityControl>
                         <BuyNowButton onClick={handleAddToCart}>Add to Cart</BuyNowButton>
-                        <BuyNowButton>Add to Wishlist</BuyNowButton>
+                        <BuyNowButton onClick={handleAddToWishlist}>Add to Wishlist</BuyNowButton>
                     </ProductInfo>
                 </ProductDetailsContainer>
-                <ProductReviews>
+                {showModal && (
+                  <ModalBackground>
+                      <ModalWrapper>
+                          <ModalHeader>
+                              <ModalTitle>Welcome</ModalTitle>
+                              <CloseButton onClick={handleClose}>X</CloseButton>
+                          </ModalHeader>
+                          <ModalBody>Added to wishlist</ModalBody>
+                          <ModalFooter>
+                              <CloseButton onClick={handleClose}>Close</CloseButton>
+                          </ModalFooter>
+                      </ModalWrapper>
+                  </ModalBackground>
+                )}
+                <div className="product-reviews">
                     <h2>Customer Reviews</h2>
-                    {product.ratings.length > 0 ? (
-                        product.ratings.map(review => (
+                    {product.reviews ? (
+                        product.reviews.map(review => (
                             <div key={review.id} className="review">
                                 <p><strong>{review.username}</strong> - {review.rating} ★</p>
                                 <p>{review.comment}</p>
@@ -116,13 +169,74 @@ const ProductDetails = () => {
                     ) : (
                         <p>No reviews yet.</p>
                     )}
-                </ProductReviews>
+                </div>
             </ProductDetailsPage>
             <Footer />
         </>
     );
 };
 
+const ModalBackground = styled.div`
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(0, 0, 0, 0.5);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 1050;
+`;
+
+// Modal Wrapper
+const ModalWrapper = styled.div`
+background: white;
+border-radius: 5px;
+width: 500px;
+max-width: 90%;
+padding: 20px;
+`;
+
+// Modal Header
+const ModalHeader = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding-bottom: 10px;
+border-bottom: 1px solid #dee2e6;
+`;
+
+// Modal Title
+const ModalTitle = styled.h5`
+margin: 0;
+`;
+
+// Modal Body
+const ModalBody = styled.div`
+padding: 20px 0;
+`;
+
+// Modal Footer
+const ModalFooter = styled.div`
+display: flex;
+justify-content: flex-end;
+padding-top: 10px;
+border-top: 1px solid #dee2e6;
+`;
+
+const CloseButton = styled.button`
+padding: 5px 15px;
+background-color: #db4445;
+color: #333;
+border: none;
+border-radius: 3px;
+cursor: pointer;
+
+&:hover {
+  background-color: #fff;
+}
+`; 
 const ProductDetailsPage = styled.div`
   padding: 20px;
   max-width: 1200px;

@@ -25,29 +25,81 @@ const products = async ()=>{
     return await res.json();
   } catch (err) {
     console.error('Error fetching products:', err);
-  }
+  }return []
 }
-const fetchrecommendedProducts = async()=>{
+const fetchWithTokenRefresh = async (url, options = {}) => {
+  let token = localStorage.getItem('token');
+  console.log('Fetching',token)
+  // Function to refresh token
+  const refreshToken = async () => {
+    console.log('refreshing token')
+    const refresh_token = localStorage.getItem('refresh_token');
+    console.log("tokenexpired",refresh_token)
+    const res = await fetch('/user/refresh_token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: refresh_token }),
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      localStorage.setItem('token', data.access_token);
+      return data.access_token;
+    } else {
+      console.error('Failed to refresh token');
+      return null;
+    }
+  };
+  console.log('using normal token')
+
+  const res = await fetch(url, {
+    ...options,
+    headers: {
+      ...options.headers,
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+  if (res.status === 401) {  // Token might be expired
+    console.log('using refreshToken') 
+    token = await refreshToken();
+    if (token) {
+      // Retry with new token
+      console.log('retrying with new token')
+      return fetchWithTokenRefresh(url, options);
+    }
+  }
+  
+  return res.json()
+};
+
+const fetchRecommendedProducts = async () => {
   try {
-    const res = await fetch('/api/recommended_products');
+    const res = await fetchWithTokenRefresh('/api/recommended_products', {
+      method: 'GET',
+    });
+    
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
     return await res.json();
   } catch (err) {
     console.error('Error fetching recommended products:', err);
+    return [];
   }
-}
+};
+
 const fetchrandomproducts = async(no)=>{
   try {
-    const res = await fetch(`/api/products?limit=${no}`);
+    const res = await fetch(`/api/top_discounted_rated_products?limit=${no}`);
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
     return await res.json();
   } catch (err) {
     console.error('Error fetching random products:', err);
-  }
+  } return [];
 }
 function Home(){
   const [productsList, setproductsList] =useState([])
@@ -60,7 +112,7 @@ function Home(){
         console.log("data loaded")
       }
     })
-    fetchrecommendedProducts().then((data)=>{
+    fetchRecommendedProducts().then((data)=>{
       if (data && data.length ){
         if (data.length < 4){
           const tofetch = 4 - data.length
@@ -83,8 +135,9 @@ function Home(){
       }
     }).catch((error)=>{
       console.error('Error fetching recommended products:', error);
+    }).finally(()=>{
+      setisLoading(false)
     })
-    setisLoading(false)
   }, []);
   console.log()
   const productsLister=(productsList)=>{
@@ -105,21 +158,8 @@ return(
         <div className="top-right">
           <h2>Categories</h2>
         </div>
-      </div>
-      <div className="lower">
-        <div className="title">
-          <h2>Browse By Category</h2>
-        </div>
-        <div className="navigation">
-          <i className="bi bi-arrow-left-circle"></i>
-          <i className="bi bi-arrow-right-circle"></i>
-        </div>
-      </div>      
-      <div className="categories"> 
-        <div className="category-container">
-          {CategoryList()}
-        </div>
-      </div>
+      </div>          
+        <CategoryList/>
       <hr className="line" />    
     </div>
   </div>
@@ -143,7 +183,7 @@ return(
       </div>      
       <div className="categories"> 
         <div className="category-container">
-        {loading === true ? null : productsLister(productsList)}
+        {loading === true ? null : productsLister(recommendedProducts)}
         </div>
       </div>
       <hr className="line" />    
