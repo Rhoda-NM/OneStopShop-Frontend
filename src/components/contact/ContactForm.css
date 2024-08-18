@@ -81,6 +81,14 @@
 }
 
 @media screen and (max-width: 768px) {
+  .contact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .contact-info {
+    width: 80%;
+  }
   .contact-form form {
     grid-template-columns: 1fr; 
   }

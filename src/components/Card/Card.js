@@ -127,7 +127,7 @@ function Card({ productName, image_url, price, id, addToWishlist }) {
                 </div>
                 <div className="price_area">
                     <div className="price_container">
-                        <span className="current_price">${price}.00</span>
+                        <span className="current_price">${price}</span>
                         {discount && <span className="old_price">${discount}.00</span>}
                     </div>
                 </div>

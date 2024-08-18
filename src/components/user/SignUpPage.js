@@ -8,8 +8,9 @@ import Footer from "./Footer";
 const SignUpPage = () => {
   return (
     <PageWrapper>
+      <Header />
       <MainContent>
-        <Header />
+        
         <SignUpSection>
           <ImageColumn>
             <SignUpImage
@@ -37,7 +38,7 @@ const PageWrapper = styled.div`
 const MainContent = styled.main`
   align-self: center;
   width: 100%;
-  max-width: 1225px;
+  max-width: 1100px;
   margin-top: 18px;
   font-family: Poppins, sans-serif;
   color: var(--Text2, #000);
@@ -50,7 +51,8 @@ const SignUpSection = styled.section`
   display: flex;
   margin-top: 150px;
   width: 100%;
-  max-width: 1305px;
+  overflow: hidden;
+  max-width: 1100px;
   @media (max-width: 700px) {
     flex-direction: column-reverse;
     align-items: stretch;
