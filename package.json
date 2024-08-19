@@ -1,6 +1,6 @@
 {
-  "name": "onestopshop",
   "homepage": "https://Rhoda-NM.github.io/OneStopShop-Frontend",
+  "name": "onestopshop",
   "version": "0.1.0",
   "private": true,
   "proxy": "https://onestopshop-project.onrender.com/",
@@ -29,9 +29,9 @@
     "yup": "^1.4.0"
   },
   "scripts": {
+    "start": "react-scripts start",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
