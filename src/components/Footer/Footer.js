@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import FooterSection from "./FooterSection";
-import SocialLinks from "./SocialLinks";
-import SubscribeForm from "./SubscribeForm";
+//import SocialLinks from "./SocialLinks";
+//import SubscribeForm from "./SubscribeForm";
 import FooterDetail from "./FooterDetail";
 
 const Footer = () => {

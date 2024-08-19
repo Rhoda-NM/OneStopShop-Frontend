@@ -1,12 +1,11 @@
 import React, { useEffect, useState} from "react";
-import { useNavigate, useParams } from 'react-router-dom';
+//import {  useParams } from 'react-router-dom';
 import styled from "styled-components";
 import WishlistItem from "./WishlistItem";
 import axios from "axios";
 
 
 const WishlistItems = () => {
-  const { id } = useParams();
   const token = localStorage.getItem('token');
   const [wishlist, setWishlist] = useState([]);
 

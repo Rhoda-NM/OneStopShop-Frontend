@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../AuthProvider';
-import { useDispatch } from 'react-redux';
+//import { useAuth } from '../AuthProvider';
+//import { useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import AddToWishlist from '../components/wishlist/AddWishlist';
 import axios from 'axios';
 import styled from 'styled-components';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
-import { addToCart } from '../stores/cart';
-import { addToCartAsync } from '../stores/cart';
-import Card from '../components/Card/Card';
+//import { addToCart } from '../stores/cart';
+//import { addToCartAsync } from '../stores/cart';
+//import Card from '../components/Card/Card';
 import './ProductDetail.css';
 
 
@@ -21,8 +21,8 @@ const ProductDetails = () => {
     const [product, setProduct] = useState(null);
     const [error, setError] = useState(null);
     const [quantity, setQuantity] = useState(1);
-    const [relatedItems, setRelatedItems] = useState([]);
-    const dispatch = useDispatch();
+    //const [relatedItems, setRelatedItems] = useState([]);
+    //const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => {
       setShowModal(false);
@@ -59,6 +59,10 @@ const ProductDetails = () => {
     }
     
     const handleAddToCart = async () => {
+      if (!user) {
+        navigate('/user/login');
+        return;
+      }
       try {
         const orderItems = [{
           product_id: product.id,
@@ -153,7 +157,7 @@ const ProductDetails = () => {
                       </ModalWrapper>
                   </ModalBackground>
                 )}
-                <div className="product-reviews">
+                <ProductReviews>
                     <h2>Customer Reviews</h2>
                     {product.reviews ? (
                         product.reviews.map(review => (
@@ -165,7 +169,7 @@ const ProductDetails = () => {
                     ) : (
                         <p>No reviews yet.</p>
                     )}
-                </div>
+                </ProductReviews>
             </ProductDetailsPage>
             <Footer />
         </>

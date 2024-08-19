@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './AuthProvider'
+import { Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './AuthProvider'
 import About from './components/about/About';
 import {Wishlist} from './components/wishlist/WishlistPage';
 import WishlistPage from './components/wishlist/WishlistPage';
