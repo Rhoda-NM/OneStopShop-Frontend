@@ -79,6 +79,7 @@ function Header() {
           <div id="search-form">
             <Search />
           </div>
+
           {user && (
             <div className="mini_menu">
               <button className="mini_menu_button" onClick={handleMiniMenuToggle}>
@@ -86,25 +87,26 @@ function Header() {
               </button>
         
               <div className={`mini_menu_content ${isMiniMenuOpen ? 'show' : ''}`}>
-                {user.role === 'user'? 
-                <>
+                {<>
                 <Link to="/cart" className="mini_menu_link">
                   <i className="ri-shopping-cart-line"></i> Cart
                 </Link>
                 <Link to="/wishlist" className="mini_menu_link">
                   <i className="ri-heart-line"></i> Wishlist
                 </Link>
-                <Link to="/dashboard" className="mini_menu_link">
+                </>
+                }
+                {user.role === 'admin'? 
+                <>
+                <Link to="/sellerdash" className="mini_menu_link">
                 <i className="ri-user-line"></i> Account
                 </Link>
                 </>
                 :
-                <Link to="/sellerdash" className="mini_menu_link">
+                
+                <Link to="/dashboard" className="mini_menu_link">
                 <i className="ri-user-line"></i> Account
-                </Link>
-                }
-                
-                
+                </Link>} 
                 <button className="mini_menu_link" onClick={handleLogout}>
                   <i className="ri-logout-box-line"></i> Log Out
                 </button>
@@ -112,7 +114,6 @@ function Header() {
             </div>
           )}
         </div>
-
         <div className={`toggle_btn ${isMenuOpen ? 'active' : ''}`} id="toggle-btn" onClick={handleToggle}>
           <i className="ri-menu-line"></i>
         </div>
