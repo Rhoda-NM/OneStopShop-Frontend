@@ -87,7 +87,7 @@ function Header() {
               </button>
         
               <div className={`mini_menu_content ${isMiniMenuOpen ? 'show' : ''}`}>
-              {user.role === 'user'? 
+              {user.role === 'user' ? 
                 <>
                 <Link to="/cart" className="mini_menu_link">
                   <i className="ri-shopping-cart-line"></i> Cart
