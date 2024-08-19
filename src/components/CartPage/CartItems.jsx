@@ -76,7 +76,7 @@ const CartItems = () => {
       }
     };
     fetchCart();
-  }, [cartItems]);
+  }, []);
 
   const handleQuantityChange = (productId, newQuantity) => {
     setCartItems(prevItems =>
@@ -303,4 +303,3 @@ const StyledCartItems = styled.section`
 `;
 
 export default CartItems;
-
