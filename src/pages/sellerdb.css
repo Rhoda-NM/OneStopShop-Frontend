@@ -37,7 +37,7 @@
     gap: 16px;
     grid-template-columns: 20rem auto;
   }
-  main{
+  main.sellerdb{
     margin: 60px 20px 30px 20px;
     overflow: scroll;
   }

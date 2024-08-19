@@ -14,7 +14,7 @@ function SellerDb() {
     <div className="App">
       <div className="AppGlass">
         <Sidebar/>
-        <main>
+        <main className='sellerdb'>
            <Outlet />
         </main>
         
