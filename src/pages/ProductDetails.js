@@ -26,7 +26,6 @@ const ProductDetails = () => {
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => {
       setShowModal(false);
-    
     };
 
 
@@ -61,29 +60,24 @@ const ProductDetails = () => {
     
     const handleAddToCart = async () => {
       try {
-        const response = await axios.post('/api/cart', {
-          order_items: [
-            {
-              product_id: product.id,
-              quantity: quantity,
-            }
-          ]
-        }, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
+        const orderItems = [{
+          product_id: product.id,
+          quantity: quantity,
+      }];
+        const response = await axios.post('/api/cart', { order_items: orderItems }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`, // Assuming you have an auth slice with a token
+            },
         });
-  
-    if (response.status === 201) {
-      setShowModal(true)
-    } else {
-      alert('Failed to add item to cart.');
+        if (response.status === 201) {
+          setShowModal(true)
+        } else {
+          alert('Failed to add item to cart.');
+        }
+      }catch (error) {
+        return console.error(error);
     }
-  } catch (err) {
-    console.error('Error adding item to cart:', err);
-    alert('There was an error adding the item to the cart.');
   }
-    };
 
     const handleAddToWishlist = async () => {
       if (!user) {
@@ -99,9 +93,6 @@ const ProductDetails = () => {
         <>
             <Header />
             <ProductDetailsPage>
-                <Breadcrumb>
-                    <a href="/">Home</a> / <a href={`/category/${product.category.id}`}>{product.category.name}</a> / {product.name}
-                </Breadcrumb>
                 <ProductDetailsContainer>
                     <ProductImage>
                         <img src={product.image_url} alt={product.name} />
@@ -240,7 +231,7 @@ cursor: pointer;
 const ProductDetailsPage = styled.div`
   padding: 20px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin-top: 100px;
 `;
 
 const Breadcrumb = styled.div`

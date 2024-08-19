@@ -29,7 +29,7 @@ function AllProducts(){
       };
       return (
         <>
-        <button className="All_products" type="button" onClick={handleButtonClick}>View All Products</button>
+        <button className="All_products home" type="button" onClick={handleButtonClick}>View All Products</button>
           <Modal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
