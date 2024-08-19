@@ -1,4 +1,38 @@
-.search_button{
+/* Container for the search input and button */
+.search-container {
+    display: flex;
+    align-items: center; /* Center items vertically */
+  }
+  
+  /* Search bar styling */
+  .search-bar {
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 250px; /* Adjust width as needed */
+    line-height: 1.5rem; /* Ensure vertical alignment */
+  }
+  
+  /* Search button styling */
+  .search_button {
+    background-color: var(--white-color);
     border: none;
-}
-
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    display: flex;
+    align-items: center; /* Center icon vertically */
+  }
+  
+  /* Icon inside the search button */
+  .search_button img {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+  

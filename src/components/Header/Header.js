@@ -62,22 +62,24 @@ function Header() {
             <i className="ri-close-large-line"></i>
           </div>
         </div>
-        <div className={`Search_area ${isMenuOpen ? 'show-form' : ''}`} id="Search-area">
-          <div id="search-form">
-            <Search />
+        <div className="Search_area">
+          <Search />
+        </div>
+        <div className="header-right">
+          <div className="shop_icons">
+            <Link to="/cart" className="shop_icons_link">
+              <i className="ri-shopping-cart-line"></i>
+            </Link>
+            <Link to="/wishlist" className="shop_icons_link">
+              <i className="ri-heart-line"></i>
+            </Link>
           </div>
           {isLoggedIn && (
             <div className="mini_menu">
               <button className="mini_menu_button" onClick={handleMiniMenuToggle}>
-                <i className="ri-user-line"></i> 
+                <i className="ri-user-line"></i>
               </button>
               <div className={`mini_menu_content ${isMiniMenuOpen ? 'show' : ''}`}>
-                <Link to="/cart" className="mini_menu_link">
-                  <i className="ri-shopping-cart-line"></i> Cart
-                </Link>
-                <Link to="/wishlist" className="mini_menu_link">
-                  <i className="ri-heart-line"></i> Wishlist
-                </Link>
                 <Link to="/dashboard" className="mini_menu_link">
                   <i className="ri-user-line"></i> Account
                 </Link>
@@ -88,7 +90,6 @@ function Header() {
             </div>
           )}
         </div>
-
         <div className={`toggle_btn ${isMenuOpen ? 'active' : ''}`} id="toggle-btn" onClick={handleToggle}>
           <i className="ri-menu-line"></i>
         </div>

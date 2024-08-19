@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from './Search.svg';
 import './Search.css';
 import SearchModal from './SearchModal';
@@ -35,7 +35,7 @@ const Search = () => {
   ) : null;
 
   return (
-    <div>
+    <div className="search-container">
       <input
         type="text"
         className="search-bar"
