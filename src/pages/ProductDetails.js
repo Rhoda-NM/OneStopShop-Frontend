@@ -130,7 +130,12 @@ const ProductDetails = () => {
                             <input type="text" value={quantity} readOnly className="quantity-input" />
                             <button onClick={handlePlusQuantity} className="quantity-btn">+</button>
                         </QuantityControl>
-                        <BuyNowButton onClick={handleAddToCart}>Add to Cart</BuyNowButton>
+                        {product.stock > 0? 
+                            <BuyNowButton onClick={handleAddToCart}>Add to Cart</BuyNowButton>
+                        :
+                          <OutofStock>Out of Stock</OutofStock>
+                        }
+                        
                         <BuyNowButton onClick={handleAddToWishlist}>Add to Wishlist</BuyNowButton>
                     </ProductInfo>
                 </ProductDetailsContainer>
@@ -141,7 +146,7 @@ const ProductDetails = () => {
                               <ModalTitle>Welcome</ModalTitle>
                               <CloseButton onClick={handleClose}>X</CloseButton>
                           </ModalHeader>
-                          <ModalBody>Added to wishlist</ModalBody>
+                          <ModalBody>Added successfully</ModalBody>
                           <ModalFooter>
                               <CloseButton onClick={handleClose}>Close</CloseButton>
                           </ModalFooter>
@@ -215,7 +220,13 @@ justify-content: flex-end;
 padding-top: 10px;
 border-top: 1px solid #dee2e6;
 `;
-
+const OutofStock = styled.button`
+padding: 5px 15px;
+color: #fff;
+background-color: #333;
+border: none;
+border-radiius: 3px;
+`;
 const CloseButton = styled.button`
 padding: 5px 15px;
 background-color: #db4445;
