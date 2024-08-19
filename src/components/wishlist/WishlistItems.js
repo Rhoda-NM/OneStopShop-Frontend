@@ -43,7 +43,7 @@ const WishlistItems = () => {
   return (
     <WishlistSection>
       <WishlistHeader>
-        <h2>Wishlist (4)</h2>
+        <h2>Wishlist</h2>
         <MoveAllButton>Move All To Cart</MoveAllButton>
       </WishlistHeader>
       <ItemsGrid>
