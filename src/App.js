@@ -20,13 +20,14 @@ import SellerDb from './pages/SellerDb';
 import UserProfile from './pages/UserProfile';
 import MyOrders from './components/Profile/orders';
 import ProfilePage from './components/Dashboard/Profile/ProfilePage';
-
+import ErrorPage from './components/ErrorPage/ErrorPage';
 const App = () => {
   return (
     <AuthProvider>
        <div>
         <Routes>
             <Route exact path='/' element={<Home />}/>
+            <Route exact path='/error' element={<ErrorPage />}/>
             <Route exact path='user/login' element={<LoginPage />}/>
             <Route exact path='user/signup' element={<SignUpPage />}/>
             <Route exact path='/products' element={<Products />}/>
