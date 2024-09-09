@@ -221,7 +221,7 @@ We welcome contributions to the project! If you have an idea for a feature, or i
 
 - **Scrum Master**: [Rhoda Muya](https://github.com/Rhoda-NM)
 - **Group Members**:
-  - [Mariya Mwanjiru](https://github.com/mwanjiru12)
+  - [Maria Wanjiru Kamau](https://github.com/mwanjiru12)
   - [Bravin Kibet](https://github.com/Bravinkibet)
   - [Ephy Muiruri](https://github.com/Ephymuiruri)
   - [Brian Onduso](https://github.com/BrianOnduso0)
